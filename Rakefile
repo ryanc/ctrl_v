@@ -11,6 +11,11 @@ env = ENV['RACK_ENV'] || 'production'
 config = YAML.load_file('config/database.yml')[env]
 DB = Sequel.connect(config)
 
+desc "Generate the session key."
+task :genkey do
+  `openssl rand -out session.key 64`
+end
+
 namespace :migrate do
   Sequel.extension :migration
 
