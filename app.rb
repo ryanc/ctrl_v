@@ -4,8 +4,12 @@ require 'sinatra/base'
 require 'mustache/sinatra'
 require 'sequel'
 require 'yaml'
+require 'dotenv'
 
-config = YAML.load_file('config/database.yml')['development']
+Dotenv.load
+
+env = ENV['RACK_ENV'] || 'production'
+config = YAML.load_file('config/database.yml')[env]
 DB = Sequel.connect(config)
 
 class App < Sinatra::Base

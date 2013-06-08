@@ -3,10 +3,12 @@ $LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__))
 require "rake"
 require "yaml"
 require "sequel"
+require "dotenv"
 
-env = ENV['RACK_ENV'] || 'development'
+Dotenv.load
 
-config = YAML.load_file('config/database.yml')['development']
+env = ENV['RACK_ENV'] || 'production'
+config = YAML.load_file('config/database.yml')[env]
 DB = Sequel.connect(config)
 
 namespace :migrate do
