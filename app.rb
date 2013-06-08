@@ -9,8 +9,7 @@ require 'dotenv'
 Dotenv.load
 
 env = ENV['RACK_ENV'] || 'production'
-config = YAML.load_file('config/database.yml')[env]
-DB = Sequel.connect(ENV['DATABASE_URL'] || config)
+DB = Sequel.connect(ENV['DATABASE_URL'] || YAML.load_file('config/database.yml')[env])
 
 class App < Sinatra::Base
   register Mustache::Sinatra
