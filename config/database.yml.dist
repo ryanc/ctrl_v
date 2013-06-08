@@ -1,0 +1,20 @@
+development:
+  adapter: postgres
+  host: localhost
+  user: user
+  password: password
+  database: ctrl_v_development
+
+test:
+  adapter: postgres
+  host: localhost
+  user: user
+  password: password
+  database: ctrl_v_test
+
+production:
+  adapter: postgres
+  host: localhost
+  user: user
+  password: password
+  database: ctrl_v

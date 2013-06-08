@@ -1,0 +1,16 @@
+{{>messages}}
+<form action="/new" method="post">
+  <textarea name="content" id="paste_content"></textarea>
+  <div class="right">
+    <p>
+      <span class="group">
+        <label for="highlight">Syntax highlighting?</label>
+        <input type="checkbox" name="highlight" checked="checked" />
+      </span>
+    </p>
+    <p>
+      <input type="text" id="filename" placeholder="Optional filename ..." />
+      <button class="button-main" id="submit" type="submit">Paste It</button>
+    </p>
+  </div>
+</form>
