@@ -40,7 +40,10 @@ class App < Sinatra::Base
 
   get '/latest' do
     id = Models::Paste.order(:id).reverse.get(:id)
-    redirect to '/new' if id.nil?
-    redirect to "/p/#{id}"
+    if id.nil?
+      redirect to '/new'
+    else
+      redirect to "/p/#{id}"
+    end
   end
 end
