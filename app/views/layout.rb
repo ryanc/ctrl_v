@@ -14,14 +14,6 @@ class App
       def signed_in?
         @uid.nil? == false
       end
-
-      def nav_links
-        [
-          { :url => '/tasks', :caption => 'Tasks' },
-          { :url => '/new_task', :caption => 'New Task' },
-          { :url => '/logout', :caption => 'Sign Out' },
-        ]
-      end
     end
   end
 end
