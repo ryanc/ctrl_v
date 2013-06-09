@@ -31,6 +31,8 @@ class App < Sinatra::Base
       headers['Content-Disposition'] = "attachment; filename=#{@paste.filename}"
       headers['Content-Transfer-Encoding'] = 'binary'
       @paste.content.to_s
+    elsif params.has_key? 'clone'
+      mustache :new
     else
       mustache :paste
     end

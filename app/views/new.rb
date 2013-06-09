@@ -5,6 +5,9 @@ class App
       end
       def flash_success
       end
+      def paste
+        @paste.content unless @paste.nil?
+      end
     end
   end
 end
