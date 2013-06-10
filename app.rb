@@ -29,5 +29,5 @@ class App < Sinatra::Base
   end
 end
 
-#require_relative 'app/controllers/user_controller.rb'
+require_relative 'app/controllers/user_controller.rb'
 require_relative 'app/controllers/paste_controller.rb'
