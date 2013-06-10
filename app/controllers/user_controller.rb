@@ -7,16 +7,16 @@ require_relative '../models/user.rb'
 
 # Handle all user related requests.
 class App < Sinatra::Base
-  enable :sessions
-  register Sinatra::Flash
-
   helpers do
     def authenticated?; session[:uid]; end
     def protected!; redirect to '/login' unless authenticated?; end
   end
 
+  def registered?(username)
+    Models::User.where(:username => username).empty? == false
+  end
+
   get '/login' do
-    @flash = flash
     mustache :login
   end
 
@@ -28,8 +28,7 @@ class App < Sinatra::Base
         redirect to '/tasks'
       end
     end
-    flash.now[:error] = "The username or password is incorrect."
-    @flash = flash
+    flash[:error] = "The username or password is incorrect."
     mustache :login
   end
 
