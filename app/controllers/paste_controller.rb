@@ -16,6 +16,7 @@ class App < Sinatra::Base
       :filename => params[:filename],
       :highlight => !params[:highlight].nil?,
       :content => params[:content],
+      :user_id => @uid,
     )
     redirect to "/p/#{paste.id}"
   end
