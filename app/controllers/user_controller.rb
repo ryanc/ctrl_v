@@ -37,4 +37,26 @@ class App < Sinatra::Base
     session[:uid] = nil
     redirect to '/login' 
   end
+
+  get '/register' do
+    mustache :register
+  end
+
+  post '/register' do
+    if registered? params[:username]
+      flash[:error] = "The username '#{params[:username]}' is already taken."
+      redirect to '/register'
+    end
+    # Create the user
+    user = Models::User.new(
+      :name => params[:name],
+      :username => params[:username],
+      :email => params[:email],
+      :password => params[:password],
+      :password_confirmation => params[:password_confirmation],
+    )
+    user.save
+    flash[:success] = "You have succesfully registered."
+    redirect to '/login'
+  end
 end
