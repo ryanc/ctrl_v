@@ -25,7 +25,7 @@ class App < Sinatra::Base
     if user
       if user.authenticate(params[:password])
         session[:uid] = user.id
-        redirect to '/tasks'
+        redirect to '/pastes'
       end
     end
     flash[:error] = "The username or password is incorrect."
