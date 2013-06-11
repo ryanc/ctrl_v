@@ -10,9 +10,9 @@ Dotenv.load
 env = ENV['RACK_ENV'] || 'production'
 DB = Sequel.connect(ENV['DATABASE_URL'] || YAML.load_file('config/database.yml')[env])
 
-desc "Generate the session key."
-task :genkey do
-  `openssl rand -out session.key 64`
+desc "Generate the session secret."
+task :secret do
+  puts `openssl rand 64`.unpack('H*')
 end
 
 namespace :migrate do
