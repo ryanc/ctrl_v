@@ -29,7 +29,7 @@ class App < Sinatra::Base
       end
     end
     flash[:error] = "The username or password is incorrect."
-    mustache :login
+    redirect to '/login'
   end
 
   get '/logout' do
