@@ -32,6 +32,12 @@ class App < Sinatra::Base
       headers['Content-Disposition'] = "attachment; filename=#{@paste.filename}"
       headers['Content-Transfer-Encoding'] = 'binary'
       @paste.content.to_s
+    elsif params.has_key? 'delete'
+      halt(403) unless @paste.user_id == @uid
+      @paste.is_active = false
+      @paste.save
+      flash[:success] = "Paste ##{@paste.id} has been deleted."
+      redirect to '/new'
     elsif params.has_key? 'clone'
       mustache :new
     else
