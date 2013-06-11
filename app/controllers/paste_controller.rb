@@ -22,7 +22,7 @@ class App < Sinatra::Base
   end
 
   get '/p/:id' do
-    @paste = Models::Paste.find(:id => params[:id])
+    @paste = Models::Paste.find(:id => params[:id], :is_active => true)
     halt(404) if @paste.nil?
     if params.has_key? 'raw'
       content_type 'text/plain'
@@ -40,7 +40,7 @@ class App < Sinatra::Base
   end
 
   get '/latest' do
-    id = Models::Paste.order(:id).reverse.get(:id)
+    id = Models::Paste.where(:is_active => true).order(:id).reverse.get(:id)
     if id.nil?
       redirect to '/new'
     else
