@@ -29,6 +29,7 @@ class App < Sinatra::Base
 
   before do
     @uid = session[:uid]
+    @current_user = Models::User.find(:id => @uid)
     @flash_error = flash[:error]
     @flash_success = flash[:success]
   end
