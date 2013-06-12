@@ -50,9 +50,9 @@ $(document).ready(function() {
     <li><a class="smooth-button" href="/p/{{id}}?raw">Raw</a></li>
     <li><a class="smooth-button" href="/p/{{id}}?download">Download</a></li>
     <li><a class="smooth-button" href="/p/{{id}}?clone">Clone</a></li>
-    {{#signed_in?}}
+    {{#owner?}}
     <li><a class="smooth-button" href="/p/{{id}}?delete">Delete</a></li>
-    {{/signed_in?}}
+    {{/owner?}}
   </ul>
 </div>
 <div class="clear"></div>
