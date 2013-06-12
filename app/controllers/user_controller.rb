@@ -45,10 +45,6 @@ class App < Sinatra::Base
   end
 
   post '/register' do
-    if registered? params[:username]
-      flash[:error] = "The username '#{params[:username]}' is already taken."
-      redirect to '/register'
-    end
     # Create the user
     user = Models::User.new(
       :name => params[:name],
@@ -57,8 +53,13 @@ class App < Sinatra::Base
       :password => params[:password],
       :password_confirmation => params[:password_confirmation],
     )
-    user.save
-    flash[:success] = "You have succesfully registered."
-    redirect to '/login'
+    unless user.valid?
+      @errors = user.errors
+      mustache :register
+    else
+      user.save
+      flash[:success] = "You have succesfully registered."
+      redirect to '/login'
+    end
   end
 end

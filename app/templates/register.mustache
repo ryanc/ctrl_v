@@ -6,23 +6,26 @@
   </div>
 
   <div class="group">
-    <label for="username">Username</label>
+    <label for="username" class="required">Username</label>
     <input type="text" name="username" />
+    {{#errors}}{{#username}}<span class="form-error">{{.}}</span>{{/username}}{{/errors}}
   </div>
 
   <div class="group">
-    <label for="email">Email</label>
+    <label for="email" class="required">Email</label>
     <input type="text" name="email" />
+    {{#errors}}{{#email}}<span class="form-error">{{.}}</span>{{/email}}{{/errors}}
   </div>
 
   <div class="group">
-    <label for="password">Password</label>
+    <label for="password" class="required">Password</label>
     <input type="password" name="password" />
   </div>
 
  <div class="group">
-    <label for="password_confirmation">Password (Confirm)</label>
-    <input type="password" name="password_confirmation  " />
+    <label for="password_confirmation" class="required">Password (Confirm)</label>
+    <input type="password" name="password_confirmation" />
+    {{#errors}}{{#password}}<span class="form-error">{{.}}</span>{{/password}}{{/errors}}
   </div>
 
   <div class="group">
