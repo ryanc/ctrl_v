@@ -7,25 +7,26 @@
 
   <div class="group">
     <label for="username" class="required">Username</label>
-    <input type="text" name="username" />
+    <input type="text" name="username" required />
     {{#errors}}{{#username}}<span class="form-error">{{.}}</span>{{/username}}{{/errors}}
   </div>
 
   <div class="group">
     <label for="email" class="required">Email</label>
-    <input type="text" name="email" />
+    <input type="email" name="email" required />
     {{#errors}}{{#email}}<span class="form-error">{{.}}</span>{{/email}}{{/errors}}
   </div>
 
   <div class="group">
     <label for="password" class="required">Password</label>
-    <input type="password" name="password" />
+    <input type="password" name="password" required />
+    {{#errors}}{{#password}}<span class="form-error">{{.}}</span>{{/password}}{{/errors}}
   </div>
 
  <div class="group">
     <label for="password_confirmation" class="required">Password (Confirm)</label>
-    <input type="password" name="password_confirmation" />
-    {{#errors}}{{#password}}<span class="form-error">{{.}}</span>{{/password}}{{/errors}}
+    <input type="password" name="password_confirmation" required />
+    {{#errors}}{{#password_confirmation}}<span class="form-error">{{.}}</span>{{/password_confirmation}}{{/errors}}
   </div>
 
   <div class="group">
