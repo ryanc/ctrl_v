@@ -12,6 +12,7 @@ class App < Sinatra::Base
   end
 
   post '/new' do
+    # Honeypot test.
     halt 201 unless params[:_hp].empty?
     paste = Models::Paste.create(
       :filename => params[:filename],
