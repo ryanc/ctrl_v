@@ -17,6 +17,7 @@ gem 'mustache'
 gem 'bcrypt-ruby'
 
 group :deployment do
+  gem 'capistrano'
   gem 'unicorn'
 end
 
