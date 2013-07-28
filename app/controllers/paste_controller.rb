@@ -24,7 +24,7 @@ class App < Sinatra::Base
   end
 
   get '/p/:id' do
-    @paste = Models::Paste.find(:id => params[:id], :is_active => true)
+    @paste = Models::Paste.find(:id => params[:id], :is_active => true, :is_spam => false)
     halt(404) if @paste.nil?
     if params.has_key? 'raw'
       content_type 'text/plain'
