@@ -21,7 +21,7 @@ class App < Sinatra::Base
   }
 
   configure do
-    set :session_secret, File.read 'config/secret.key'
+    set :session_secret, File.read('config/secret.key')
   end
 
   before do
