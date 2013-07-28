@@ -1,5 +1,3 @@
-require 'sequel'
-
 Sequel.migration do
   up do
     alter_table :paste do
