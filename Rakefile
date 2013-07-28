@@ -1,5 +1,7 @@
 $LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__))
 
+require 'bundler/setup'
+
 require "rake"
 require "yaml"
 require "sequel"
