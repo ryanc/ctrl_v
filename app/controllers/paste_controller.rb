@@ -12,7 +12,7 @@ class App < Sinatra::Base
   end
 
   post '/new' do
-    redirect '/new' unless params[:_hp].empty?
+    halt 201 unless params[:_hp].empty?
     paste = Models::Paste.create(
       :filename => params[:filename],
       :highlight => !params[:highlight].nil?,
