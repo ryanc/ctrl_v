@@ -3,8 +3,6 @@ require 'sinatra/flash'
 require 'app/models/paste'
 require 'app/models/paste_content'
 
-Dotenv.load
-
 class App < Sinatra::Base
   get '/new' do
     mustache :new
