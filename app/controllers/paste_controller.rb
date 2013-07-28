@@ -1,5 +1,4 @@
 require 'sinatra/flash'
-require 'dotenv'
 
 require 'app/models/paste'
 require 'app/models/paste_content'

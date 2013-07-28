@@ -1,7 +1,4 @@
 require 'sinatra/flash'
-require 'dotenv'
-
-Dotenv.load
 
 require_relative '../models/user.rb'
 

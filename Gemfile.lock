@@ -61,7 +61,6 @@ PLATFORMS
 DEPENDENCIES
   bcrypt-ruby
   capistrano
-  dotenv
   foreman
   mustache
   pg

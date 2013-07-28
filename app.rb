@@ -5,9 +5,6 @@ require 'sinatra/flash'
 require 'mustache/sinatra'
 require 'sequel'
 require 'yaml'
-require 'dotenv'
-
-Dotenv.load
 
 env = ENV['RACK_ENV'] || 'production'
 DB = Sequel.connect(ENV['DATABASE_URL'] || YAML.load_file('config/database.yml')[env])

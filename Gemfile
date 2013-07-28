@@ -3,7 +3,6 @@ source 'http://www.rubygems.org'
 # framework
 gem 'sinatra'
 gem 'sinatra-flash'
-gem 'dotenv'
 
 # database
 gem 'sequel'
