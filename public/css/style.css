@@ -308,3 +308,7 @@ label.required:after {
   color: red;
   content: ' *';
 }
+
+#_hp {
+  display: none;
+}
