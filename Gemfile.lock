@@ -32,6 +32,7 @@ GEM
     rack (1.5.2)
     rack-protection (1.5.0)
       rack
+    radix62 (1.0.1)
     raindrops (0.11.0)
     rake (10.1.0)
     sass (3.2.10)
@@ -65,6 +66,7 @@ DEPENDENCIES
   mustache
   pg
   pry
+  radix62
   rake
   sass
   sequel

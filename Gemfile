@@ -1,5 +1,7 @@
 source 'http://www.rubygems.org'
 
+gem 'radix62'
+
 # framework
 gem 'sinatra'
 gem 'sinatra-flash'
