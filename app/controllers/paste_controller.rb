@@ -20,6 +20,7 @@ class App < Sinatra::Base
       :highlight => !params[:highlight].nil?,
       :content => params[:content],
       :user_id => @uid,
+      :ip_addr => request.ip,
     )
     redirect to "/p/#{paste.id_b62}"
   end
