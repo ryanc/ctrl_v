@@ -4,6 +4,10 @@ require 'app/models/paste'
 require 'app/models/paste_content'
 
 class App < Sinatra::Base
+  get '/' do
+    redirect to '/new'
+  end
+
   get '/new' do
     mustache :new
   end
