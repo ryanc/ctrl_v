@@ -1,4 +1,5 @@
 require "sequel"
+require "radix62"
 
 module Models
   class Paste < Sequel::Model(:paste)
@@ -25,6 +26,12 @@ module Models
       else
         super(Content.create(:content => content.to_s))
       end
+    end
+
+    def after_create
+      self.id_b62 = Radix62.encode62(self.id)
+      self.save
+      super
     end
   end
 end

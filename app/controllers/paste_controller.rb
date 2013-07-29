@@ -21,12 +21,12 @@ class App < Sinatra::Base
       :content => params[:content],
       :user_id => @uid,
     )
-    redirect to "/p/#{paste.id}"
+    redirect to "/p/#{paste.id_b62}"
   end
 
   get '/p/:id' do
     cache_control :max_age => 86400
-    @paste = Models::Paste.find(:id => params[:id], :is_active => true, :is_spam => false)
+    @paste = Models::Paste.find(:id_b62 => params[:id], :is_active => true, :is_spam => false)
     halt(404) if @paste.nil?
     if params.has_key? 'raw'
       content_type 'text/plain'
@@ -40,7 +40,7 @@ class App < Sinatra::Base
       halt(403) unless @paste.user_id == @uid
       @paste.is_active = false
       @paste.save
-      flash[:success] = "Paste ##{@paste.id} has been deleted."
+      flash[:success] = "Paste ##{@paste.id_b62} has been deleted."
       redirect to '/new'
     elsif params.has_key? 'clone'
       mustache :new
@@ -50,7 +50,7 @@ class App < Sinatra::Base
   end
 
   get '/latest' do
-    id = Models::Paste.where(:is_active => true).order(:id).reverse.get(:id)
+    id = Models::Paste.where(:is_active => true).order(:id).reverse.get(:id_b62)
     if id.nil?
       redirect to '/new'
     else
