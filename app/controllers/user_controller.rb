@@ -22,8 +22,8 @@ class App < Sinatra::Base
     if user
       if user.authenticate(params[:password])
         session[:uid] = user.id
-        redirect to '/pastes'
         Models::User.where(:id => user.id).update(:last_seen_at => Time.now)
+        redirect to '/new'
       end
     end
     flash[:error] = "The username or password is incorrect."
