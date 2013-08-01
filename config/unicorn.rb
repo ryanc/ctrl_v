@@ -1,7 +1,12 @@
+application = "ctrl_v"
+deploy_to = "/srv/apps/#{application}"
+shared_path = "#{deploy_to}/shared"
+
 worker_processes 2
-pid "/srv/apps/ctrl_v/shared/pids/unicorn.pid"
-stderr_path "/srv/apps/ctrl_v/shared/log/unicorn.stderr.log"
-stdout_path "/srv/apps/ctrl_v/shared/log/unicorn.stdout.log"
+listen "#{shared_path}/sockets/unicorn.sock"
+pid "#{shared_path}/pids/unicorn.pid"
+stderr_path "#{shared_path}/log/unicorn.stderr.log"
+stdout_path "#{shared_path}/log/unicorn.stdout.log"
 preload_app true
 GC.respond_to?(:copy_on_write_friendly=) and
   GC.copy_on_write_friendly = true
