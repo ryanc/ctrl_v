@@ -2,6 +2,8 @@ require "sequel"
 
 module Models
   class Content < Sequel::Model(:paste_content)
+    plugin :timestamps
+
     def content=(content)
       content.strip!
       self.digest = Digest::MD5.hexdigest(content)
