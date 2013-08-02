@@ -17,7 +17,7 @@ class App < Sinatra::Base
     halt 201 unless params[:_hp].empty?
     paste = Models::Paste.create(
       :filename => params[:filename],
-      :highlight => !params[:highlight].nil?,
+      :highlighted => !params[:highlighted].nil?,
       :content => params[:content],
       :user_id => @uid,
       :ip_addr => request.ip,

@@ -57,11 +57,11 @@ $(document).ready(function() {
 </div>
 <div class="clear"></div>
 <div class="paste">
-  {{#highlight?}}
+  {{#highlighted?}}
   <pre><code>{{content}}</code></pre>
-  {{/highlight?}}
-  {{^highlight?}}
+  {{/highlighted?}}
+  {{^highlighted?}}
   <pre>{{content}}</pre>
-  {{/highlight?}}
+  {{/highlighted?}}
 </div>
 {{/paste}}
