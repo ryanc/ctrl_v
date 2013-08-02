@@ -18,8 +18,6 @@ gem 'mustache'
 gem 'bcrypt-ruby'
 
 group :deployment do
-  gem 'capistrano'
-  gem 'capistrano-unicorn'
   gem 'unicorn'
 end
 
@@ -29,4 +27,6 @@ group :development do
   gem 'foreman'
   gem 'rake'
   gem 'pry'
+  gem 'capistrano'
+  gem 'capistrano-unicorn'
 end
