@@ -19,6 +19,7 @@ gem 'bcrypt-ruby'
 
 group :deployment do
   gem 'capistrano'
+  gem 'capistrano-unicorn'
   gem 'unicorn'
 end
 
