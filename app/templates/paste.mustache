@@ -1,51 +1,5 @@
 {{#paste}}
-<script>
-$(document).ready(function() {
-  if ($.fn.cookie("theme")) {
-    theme = $.fn.cookie("theme");
-    $("link.theme").attr("href", "/static/css/themes/" + theme);
-    $(".theme-switcher").val(theme);
-  }
-
-  $(".theme-switcher").change(function() {
-    theme = $(this).val();
-    $("link.theme").attr("href", "/static/css/themes/" + theme);
-    $.fn.cookie("theme", theme);
-  });
-});
-</script>
 <div>
-  <div class="left">
-    <label>Theme:</label>
-    <select class="theme-switcher">
-      <option value="arta.css">Arta</option>
-      <option value="ascetic.css">Ascetic</option>
-      <option value="brown_paper.css">Brown Paper</option>
-      <option value="dark.css">Dark</option>
-      <option value="default.css">Default</option>
-      <option value="far.css">FAR</option>
-      <option value="github.css">GitHub</option>
-      <option value="googlecode.css">Google Code</option>
-      <option value="idea.css">IDEA</option>
-      <option value="ir_black.css">IR Black</option>
-      <option value="magula.css">Magula</option>
-      <option value="monokai.css">Monokai</option>
-      <option value="pojoaque.css">Pojoaque</option>
-      <option value="rainbow.css">Rainbow</option>
-      <option value="school_book.css">School Book</option>
-      <option value="solarized_dark.css">Solarized Dark</option>
-      <option value="solarized_light.css">Solarized Light</option>
-      <option value="sunburst.css">Sunburst</option>
-      <option value="tomorrow-night-blue.css">Tomorrow Night Blue</option>
-      <option value="tomorrow-night-bright.css">Tomorrow Night Bright</option>
-      <option value="tomorrow-night-eighties.css">Tomorrow Night Eighties</option>
-      <option value="tomorrow-night.css">Tomorrow Night</option>
-      <option value="tomorrow.css">Tomorrow</option>
-      <option value="vs.css">Visual Studio</option>
-      <option value="xcode.css">XCode</option>
-      <option value="zenburn.css">Zenburn</option>
-    </select>
-  </div>
   <ul id="pasteOptions">
     <li><a class="smooth-button" href="/p/{{id_b62}}?raw">Raw</a></li>
     <li><a class="smooth-button" href="/p/{{id_b62}}?download">Download</a></li>
