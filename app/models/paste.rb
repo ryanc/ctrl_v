@@ -3,6 +3,8 @@ require "radix62"
 
 module Models
   class Paste < Sequel::Model(:paste)
+    plugin :boolean_readers
+
     many_to_one :content
     many_to_one :user
 
