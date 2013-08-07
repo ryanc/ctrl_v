@@ -5,6 +5,7 @@ module Models
     plugin :timestamps
 
     def content=(content)
+      content.strip!
       self.digest = Digest::MD5.hexdigest(content)
       super(content)
     end
