@@ -6,6 +6,7 @@ module Models
 
     def content=(content)
       content.strip!
+      content.gsub! /\r\n?/, "\n"
       self.digest = Digest::MD5.hexdigest(content)
       super(content)
     end

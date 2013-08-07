@@ -22,6 +22,7 @@ module Models
       # Check if the content already exists in the database. Store only one
       # record if it does exist.
       content.strip!
+      content.gsub! /\r\n?/, "\n"
       digest = Digest::MD5.hexdigest(content.to_s)
       content_id = Content.where(:digest => digest).get(:id)
       unless content_id.nil?
