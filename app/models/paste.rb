@@ -19,24 +19,19 @@ module Models
     end
 
     def content=(content)
-      # Strip extra whitespace.
-      content.strip!
-
-      # Replace CRLF with LF.
-      content.gsub! /\r\n?/, "\n"
+      content = Content.new(:content => content)
 
       # Check if the content already exists in the database. Store only one
       # record if it does exist.
-      digest = Digest::MD5.hexdigest(content.to_s)
-      content_id = Content.where(:digest => digest).get(:id)
-      unless content_id.nil?
-        self.content_id = content_id
-      else
-        super(Content.create(
-          :content => content.to_s,
-          :digest  => digest,
-        ))
+      content_id = Content.where(:digest => content.digest).get(:id)
+
+      # Create the content if it does not exist.
+      if content_id.nil?
+        content.save
+        content_id = content.id
       end
+
+      self.content_id = content_id
     end
 
     def after_create
