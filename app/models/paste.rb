@@ -32,7 +32,10 @@ module Models
       unless content_id.nil?
         self.content_id = content_id
       else
-        super(Content.create(:content => content.to_s))
+        super(Content.create(
+          :content => content.to_s,
+          :digest  => digest,
+        ))
       end
     end
 
