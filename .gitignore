@@ -1,5 +1,4 @@
 config/database.yml
-session.key
 .sass-cache
 .env
 config/secret.key
