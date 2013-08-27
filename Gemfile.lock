@@ -17,7 +17,11 @@ GEM
       thor (>= 0.13.6)
     highline (1.6.19)
     kgio (2.8.0)
+    mail (2.5.4)
+      mime-types (~> 1.16)
+      treetop (~> 1.4.8)
     method_source (0.8.2)
+    mime-types (1.24)
     mustache (0.99.4)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
@@ -27,6 +31,9 @@ GEM
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
     pg (0.16.0)
+    polyglot (0.3.3)
+    pony (1.5)
+      mail (> 2.0)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
@@ -53,6 +60,9 @@ GEM
     slop (3.4.6)
     thor (0.18.1)
     tilt (1.4.1)
+    treetop (1.4.15)
+      polyglot
+      polyglot (>= 0.3.1)
     unicorn (4.6.3)
       kgio (~> 2.6)
       rack
@@ -68,6 +78,7 @@ DEPENDENCIES
   foreman
   mustache
   pg
+  pony
   pry
   radix62
   rake

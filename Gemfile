@@ -17,6 +17,9 @@ gem 'mustache'
 # passwords
 gem 'bcrypt-ruby'
 
+# email
+gem 'pony'
+
 group :deployment do
   gem 'unicorn'
 end
