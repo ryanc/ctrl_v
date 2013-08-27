@@ -1,4 +1,5 @@
 require 'sinatra/flash'
+require 'pony'
 
 require_relative '../models/user.rb'
 
@@ -42,18 +43,25 @@ class App < Sinatra::Base
 
   post '/register' do
     # Create the user
-    user = Models::User.new(
+    @user = Models::User.new(
       :name => params[:name],
       :username => params[:username],
       :email => params[:email],
       :password => params[:password],
       :password_confirmation => params[:password_confirmation],
     )
-    unless user.valid?
-      @errors = user.errors
+    unless @user.valid?
+      @errors = @user.errors
       mustache :register
     else
-      user.save
+      @user.save
+      Pony.mail(
+        :to => @user.email,
+        :from => 'no-reply@ctrl-v.io',
+        :subject => 'CTRL-V Registration',
+        :body => mustache(:email, :layout => false),
+        :via => :sendmail,
+      )
       flash[:success] = "You have successfully registered."
       redirect to '/login'
     end
