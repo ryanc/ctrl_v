@@ -54,7 +54,7 @@ class App < Sinatra::Base
       mustache :register
     else
       user.save
-      flash[:success] = "You have succesfully registered."
+      flash[:success] = "You have successfully registered."
       redirect to '/login'
     end
   end
