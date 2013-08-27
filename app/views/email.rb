@@ -4,6 +4,10 @@ class App
       def user
         @user
       end
+
+      def ip_addr
+        @ip_addr
+      end
     end
   end
 end

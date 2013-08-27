@@ -55,6 +55,7 @@ class App < Sinatra::Base
       mustache :register
     else
       @user.save
+      @ip_addr = request.ip
       Pony.mail(
         :to => @user.email,
         :from => 'no-reply@ctrl-v.io',
