@@ -5,6 +5,14 @@ class App
         @user
       end
 
+      def recipient
+        @user.name || @user.username
+      end
+
+      def username
+        @user.username
+      end
+
       def ip_addr
         @ip_addr
       end
