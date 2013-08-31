@@ -5,6 +5,7 @@ gem 'radix62'
 # framework
 gem 'sinatra'
 gem 'sinatra-flash'
+gem 'sinatra-contrib'
 
 # database
 gem 'sequel'

@@ -61,7 +61,8 @@ class App < Sinatra::Base
         :from => 'no-reply@ctrl-v.io',
         :subject => 'CTRL-V Registration',
         :body => mustache(:email, :layout => false),
-        :via => :sendmail,
+        :via => settings.pony[:transport],
+        :via_options => settings.pony[:smtp],
       )
       flash[:success] = "You have successfully registered."
       redirect to '/login'

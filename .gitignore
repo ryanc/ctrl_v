@@ -4,3 +4,4 @@ config/database.yml
 config/secret.key
 Capfile
 config/deploy.rb
+config/settings.yml

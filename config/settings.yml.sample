@@ -1,0 +1,13 @@
+pony:
+  :transport: smtp
+
+  :smtp:
+    :address: smtp.example.net
+    :port: 587
+    :enable_starttls_auto: true
+    :user_name: user
+    :password: password
+    :authentication: plain
+
+  :sendmail:
+    # sendmail options.
