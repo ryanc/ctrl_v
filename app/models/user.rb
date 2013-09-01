@@ -2,8 +2,15 @@ require "sequel"
 require "bcrypt"
 
 module Models
+  class Sequel::Model
+    def validates_password_confirmation(password)
+      errors.add('password_confirmation', "The passwords must match.") unless send(password) == send('password_confirmation')
+    end
+  end
+
   class User < Sequel::Model(:user)
     plugin :timestamps
+    plugin :validation_helpers
 
     attr_reader :password
     attr_accessor :password_confirmation
@@ -30,11 +37,13 @@ module Models
 
     def validate
       super
-      errors.add(:username, "The username '#{username}' is already taken.") unless model.where(:username => username).empty?
-      errors.add(:username, 'The username cannot be blank.') if !username || username.strip.empty?
-      errors.add(:email, 'The email address cannot be blank.') if !email || email.strip.empty?
-      errors.add(:password, 'The password cannot be blank.') if !password || password.strip.empty?
-      errors.add(:password_confirmation, 'The passwords do not match.') if !password_confirmation || password != password_confirmation
+      validates_presence :username, :message => "The username cannot be blank."
+      validates_presence :email, :message => "The email address cannot be blank."
+      validates_presence :password, :message => "The password cannot be blank."
+      validates_presence :password_confirmation, :message => "The password confirmation cannot be blank."
+      validates_unique :username, :message => "The username is already taken."
+      validates_unique :email, :message => "The email address has already been used."
+      validates_password_confirmation :password
     end
   end
 end
