@@ -56,6 +56,7 @@ class App < Sinatra::Base
     else
       @user.save
       @ip_addr = request.ip
+      @request = request
       Pony.mail(
         :to => @user.email,
         :from => 'no-reply@ctrl-v.io',
@@ -66,6 +67,20 @@ class App < Sinatra::Base
       )
       flash[:success] = "You have successfully registered."
       redirect to '/login'
+    end
+  end
+
+  get '/user/activate' do
+    user = Models::User.where(:activation_token => params[:token]).first
+    if user
+      user.activation_token = nil
+      user.active = true
+      user.save
+      flash[:success] = "Account activation complete."
+      redirect to '/login'
+    else
+      flash[:error] = "Invalid activation token."
+      redirect to '/register'
     end
   end
 end

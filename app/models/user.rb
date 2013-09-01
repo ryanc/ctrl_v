@@ -1,5 +1,6 @@
 require "sequel"
 require "bcrypt"
+require "securerandom"
 
 module Models
   class Sequel::Model
@@ -40,11 +41,19 @@ module Models
       super
       validates_presence :username, :message => "The username cannot be blank."
       validates_presence :email, :message => "The email address cannot be blank."
-      validates_presence :password, :message => "The password cannot be blank."
-      validates_presence :password_confirmation, :message => "The password confirmation cannot be blank."
+      validates_presence :password, :message => "The password cannot be blank." if new?
+      validates_presence :password_confirmation, :message => "The password confirmation cannot be blank." if new?
       validates_unique :username, :message => "The username is already taken."
       validates_unique :email, :message => "The email address has already been used."
-      validates_password_confirmation :password
+      validates_password_confirmation :password if new?
+    end
+
+    def generate_activation_token
+      self.activation_token = SecureRandom.urlsafe_base64
+    end
+
+    def before_save
+      generate_activation_token if new?
     end
   end
 end
