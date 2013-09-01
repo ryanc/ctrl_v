@@ -11,6 +11,7 @@ module Models
   class User < Sequel::Model(:user)
     plugin :timestamps
     plugin :validation_helpers
+    plugin :boolean_readers
 
     attr_reader :password
     attr_accessor :password_confirmation

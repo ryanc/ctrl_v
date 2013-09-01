@@ -19,7 +19,7 @@ class App < Sinatra::Base
   end
 
   post '/login' do
-    user = Models::User.where(:username => params[:username]).first
+    user = Models::User.where(:username => params[:username], :active => true).first
     if user
       if user.authenticate(params[:password])
         session[:uid] = user.id
