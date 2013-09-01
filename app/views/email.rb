@@ -26,6 +26,7 @@ class App
         unless [443, 80].include? @request.port
           "#{url}:#{@request.port}"
         end
+        url
       end
     end
   end
