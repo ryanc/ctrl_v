@@ -65,7 +65,7 @@ class App < Sinatra::Base
         :via => settings.pony[:transport],
         :via_options => settings.pony[:smtp],
       )
-      flash[:success] = "You have successfully registered."
+      flash[:success] = "An email has been sent containing instructions to activate your account."
       redirect to '/login'
     end
   end
