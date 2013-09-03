@@ -22,11 +22,11 @@ class App
       end
 
       def base_url
-        url = "#{@request.scheme}://#{@request.host}"
         unless [443, 80].include? @request.port
-          "#{url}:#{@request.port}"
+          "#{@request.scheme}://#{@request.host}:#{@request.port}"
+        else
+          "#{@request.scheme}://#{@request.host}"
         end
-        url
       end
     end
   end
