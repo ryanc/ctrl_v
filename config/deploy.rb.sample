@@ -55,10 +55,6 @@ namespace :db do
     upload "config/settings.yml", "#{shared_path}/config/settings.yml"
     run "chmod -R 0600 #{shared_path}/config/*"
   end
-  task :symlink do
-    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-    run "ln -nfs #{shared_path}/config/settings.yml #{release_path}/config/settings.yml"
-  end
   task :migrate do
     run("cd #{deploy_to}/current && /usr/bin/env rake migrate:up RACK_ENV=production")
   end
@@ -66,8 +62,7 @@ end
 
 before "deploy:setup", "db:config"
 before "deploy:setup", "deploy:secret"
-after "deploy:update_code", "db:symlink"
-after "deploy:update_code", "deploy:symlink_secret"
+after "deploy:update_code", "deploy:symlink_shared"
 after 'deploy:restart', 'unicorn:restart'
 
 namespace :deploy do
@@ -79,7 +74,9 @@ namespace :deploy do
     run "openssl rand 64 > #{secret_path}" unless File.exists? secret_path
     run "chmod 0600 #{secret_path}"
   end
-  task :symlink_secret do
+  task :symlink_shared do
     run "ln -nfs #{shared_path}/config/secret.key #{release_path}/config/secret.key"
+    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+    run "ln -nfs #{shared_path}/config/settings.yml #{release_path}/config/settings.yml"
   end
 end
