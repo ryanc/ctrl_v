@@ -83,4 +83,11 @@ class App < Sinatra::Base
       redirect to '/register'
     end
   end
+
+  get '/reset_password' do
+    uid = session[:uid]
+    user = Models::User.find(:id => uid)
+    user.generate_password_reset_token if user
+    user.save
+  end
 end

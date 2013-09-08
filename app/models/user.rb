@@ -52,6 +52,11 @@ module Models
       self.activation_token = SecureRandom.urlsafe_base64
     end
 
+    def generate_password_reset_token
+      self.password_reset_token = SecureRandom.urlsafe_base64
+      self.password_reset_token_generated_at = Time.now
+    end
+
     def before_save
       generate_activation_token if new?
     end
