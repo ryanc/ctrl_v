@@ -15,6 +15,11 @@ task :secret do
 end
 
 namespace :db do
+  desc "Perform migration up to latest migration available"
+  task :up do
+    Sequel::Migrator.run DB, 'db/migrations'
+    puts "<= db:migrate executed"
+  end
   namespace :migrate do
     Sequel.extension :migration
 
