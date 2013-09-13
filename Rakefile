@@ -16,7 +16,7 @@ end
 
 namespace :db do
   desc "Perform migration up to latest migration available"
-  task :up do
+  task :migrate do
     Sequel::Migrator.run DB, 'db/migrations'
     puts "<= db:migrate executed"
   end
