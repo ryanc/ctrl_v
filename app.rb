@@ -11,11 +11,18 @@ env = ENV['RACK_ENV'] || 'production'
 DB = Sequel.connect(ENV['DATABASE_URL'] || YAML.load_file('config/database.yml')[env])
 
 class App < Sinatra::Base
+  # enable sessions
   enable :sessions
+
+  # register plugins
   register Mustache::Sinatra
-  register Sinatra::Flash
-  require 'app/views/layout'
   register Sinatra::ConfigFile
+  register Sinatra::Flash
+
+  # mustache layout
+  require 'app/views/layout'
+
+  # load the configuration file
   config_file 'config/settings.yml'
 
   set :mustache, {
