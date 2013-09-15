@@ -15,39 +15,27 @@ task :secret do
 end
 
 namespace :db do
-  desc "Perform migration up to latest migration available"
+  Sequel.extension :migration
+
+  desc 'desc "Migrate the database (options: VERSION=x).'
   task :migrate do
-    Sequel::Migrator.run DB, 'db/migrations'
-    puts "<= db:migrate executed"
+    version = ENV['VERSION'] ? ENV['VERSION'].to_i : nil
+    Sequel::Migrator.run DB, 'db/migrations', :target => version
   end
+
   namespace :migrate do
-    Sequel.extension :migration
-
-    desc "Perform automigration (reset your db data)"
-    task :auto do
-      Sequel::Migrator.run DB, 'db/migrations', :target => 0
-      Sequel::Migrator.run DB, 'db/migrations'
-      puts "<= db:migrate:auto executed"
-    end
-
-    desc "Perform migration up/down to VERSION"
-    task :to, :version do |t, args|
-      version = (args[:version] || ENV['VERSION']).to_s.strip
-      raise "No VERSION was provided" if version.empty?
-      Sequel::Migrator.apply DB, 'db/migrations', version.to_i
-      puts "<= db:migrate:to[#{version}] executed"
-    end
-
-    desc "Perform migration up to latest migration available"
+    desc 'Runs the "up" for a given migration VERSION.'
     task :up do
-      Sequel::Migrator.run DB, 'db/migrations'
-      puts "<= db:migrate:up executed"
+      version = ENV['VERSION'] ? ENV['VERSION'].to_i : nil
+      rasie 'VERSION is required' unless version
+      Sequel::Migrator.run DB, 'db/migrations', :target => version
     end
 
-    desc "Perform migration down (erase all data)"
+    desc 'Runs the "down" for a given migration VERSION.'
     task :down do
-      Sequel::Migrator.run DB, 'db/migrations', :target => 0
-      puts "<= db:migrate:down executed"
+      version = ENV['VERSION'] ? ENV['VERSION'].to_i : nil
+      rasie 'VERSION is required' unless version
+      Sequel::Migrator.run DB, 'db/migrations', :target => version
     end
 
     desc "Load the database with seed data."
