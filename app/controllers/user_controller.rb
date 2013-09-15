@@ -61,7 +61,7 @@ class App < Sinatra::Base
         :to => @user.email,
         :from => 'no-reply@ctrl-v.io',
         :subject => 'CTRL-V Registration',
-        :body => mustache(:'email/activation', :layout => false),
+        :body => mustache('email/activation', :layout => false),
         :via => settings.pony[:transport],
         :via_options => settings.pony[:smtp],
       )
@@ -84,11 +84,62 @@ class App < Sinatra::Base
     end
   end
 
-  get '/reset_password' do
-    uid = session[:uid]
-    user = Models::User.find(:id => uid)
-    user.generate_password_reset_token if user and user.password_reset_token.nil?
+  get '/user/forgot_password' do
+    mustache :forgot_password
+  end
+
+  post '/user/forgot_password' do
+    @ip_addr = request.ip
+    email = params[:email]
+    @user = Models::User.find(:email => email)
+    if @user
+      @user.generate_password_reset_token if @user.password_reset_token.nil?
+      @user.save
+      Pony.mail(
+        :to => @user.email,
+        :from => 'no-reply@ctrl-v.io',
+        :subject => 'CTRL-V Reset Password',
+        :body => mustache('email/forgot_password', :layout => false),
+        :via => settings.pony[:transport],
+        :via_options => settings.pony[:smtp],
+      )
+    end
+    flash[:success] = "An email has been sent containing instructions on how to reset your password."
+    redirect to '/login'
+  end
+
+  get '/user/validate_password_reset' do
+    # missing reset token
+    token = params[:token]
+    redirect to '/login' unless token and !token.blank?
+    user = Models::User.find(:password_reset_token => token)
+    unless user
+      flash[:error] = "Password reset token is invalid."
+      redirect to '/login'
+    end
+    user.password_reset_token = nil
     user.save
-    nil
+    session[:reset_token] = token
+    redirect to '/user/reset_password'
+  end
+
+  get '/user/reset_password' do
+    redirect to '/login' unless session[:reset_token]
+    mustache :reset_password
+  end
+
+  post '/user/reset_password' do
+    redirect to '/login' unless session[:reset_token]
+    user = Models::User.find(:password_reset_token => params[:token])
+    user.password = params[:password]
+    user.password_confirmation = params[:password_confirmation]
+    if user.valid?
+      user.save
+      flash[:success] = "A new password has been set."
+      redirect to '/login'
+    else
+      @errors = user.errors
+      mustache :reset_password
+    end
   end
 end
