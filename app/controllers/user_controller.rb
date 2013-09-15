@@ -89,5 +89,6 @@ class App < Sinatra::Base
     user = Models::User.find(:id => uid)
     user.generate_password_reset_token if user
     user.save
+    nil
   end
 end
