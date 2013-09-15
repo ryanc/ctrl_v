@@ -1,7 +1,7 @@
 $LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__))
 
 require 'sinatra/base'
-require 'sinatra/flash'
+require 'rack-flash'
 require 'mustache/sinatra'
 require 'sequel'
 require 'yaml'
@@ -17,7 +17,7 @@ class App < Sinatra::Base
   # register plugins
   register Mustache::Sinatra
   register Sinatra::ConfigFile
-  register Sinatra::Flash
+  use Rack::Flash
 
   # mustache layout
   require 'app/views/layout'

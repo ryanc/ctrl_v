@@ -1,4 +1,4 @@
-require 'sinatra/flash'
+require 'rack-flash'
 
 require 'app/models/paste'
 require 'app/models/paste_content'

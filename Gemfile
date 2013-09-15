@@ -4,7 +4,7 @@ gem 'radix62'
 
 # framework
 gem 'sinatra'
-gem 'sinatra-flash'
+gem 'rack-flash3'
 gem 'sinatra-contrib'
 
 # database

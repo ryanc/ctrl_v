@@ -1,4 +1,4 @@
-require 'sinatra/flash'
+require 'rack-flash'
 require 'pony'
 
 require_relative '../models/user.rb'
