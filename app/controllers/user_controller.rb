@@ -85,7 +85,6 @@ class App < Sinatra::Base
   end
 
   get '/reset_password' do
-    protected!
     uid = session[:uid]
     user = Models::User.find(:id => uid)
     user.generate_password_reset_token if user and user.password_reset_token.nil?
