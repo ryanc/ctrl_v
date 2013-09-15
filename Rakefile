@@ -9,7 +9,7 @@ require "sequel"
 env = ENV['RACK_ENV'] || 'production'
 DB = Sequel.connect(ENV['DATABASE_URL'] || YAML.load_file('config/database.yml')[env])
 
-desc "Generate the session secret."
+desc 'Generate the session secret.'
 task :secret do
   puts `openssl rand 64`.unpack('H*')
 end
@@ -17,7 +17,7 @@ end
 namespace :db do
   Sequel.extension :migration
 
-  desc 'desc "Migrate the database (options: VERSION=x).'
+  desc 'Migrate the database (options: VERSION=x).'
   task :migrate do
     version = ENV['VERSION'] ? ENV['VERSION'].to_i : nil
     Sequel::Migrator.run DB, 'db/migrations', :target => version
@@ -38,14 +38,14 @@ namespace :db do
       Sequel::Migrator.run DB, 'db/migrations', :target => version
     end
 
-    desc "Load the database with seed data."
+    desc 'Load the database with seed data.'
     task :seed do
       Dir['app/models/*.rb'].each { |f| require f }
       seed_file = 'db/seed.rb'
       load(seed_file) if File.exists?(seed_file)
     end
 
-    desc "Load the database with demo data."
+    desc 'Load the database with demo data.'
     task :demo do
       Dir['app/models/*.rb'].each { |f| require f }
       seed_file = 'db/demo.rb'
