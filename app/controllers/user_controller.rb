@@ -61,7 +61,7 @@ class App < Sinatra::Base
         :to => @user.email,
         :from => 'no-reply@ctrl-v.io',
         :subject => 'CTRL-V Registration',
-        :body => mustache(:email, :layout => false),
+        :body => mustache(:'email/activation', :layout => false),
         :via => settings.pony[:transport],
         :via_options => settings.pony[:smtp],
       )
