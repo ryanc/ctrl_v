@@ -119,17 +119,17 @@ class App < Sinatra::Base
     end
     user.password_reset_token = nil
     user.save
-    session[:reset_token] = token
+    session[:reset] = true
     redirect to '/user/reset_password'
   end
 
   get '/user/reset_password' do
-    redirect to '/login' unless session[:reset_token]
+    redirect to '/login' unless session[:reset]
     mustache :reset_password
   end
 
   post '/user/reset_password' do
-    redirect to '/login' unless session[:reset_token]
+    redirect to '/login' unless session[:reset]
     user = Models::User.find(:password_reset_token => params[:token])
     user.password = params[:password]
     user.password_confirmation = params[:password_confirmation]
