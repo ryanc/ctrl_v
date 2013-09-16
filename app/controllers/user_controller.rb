@@ -113,7 +113,7 @@ class App < Sinatra::Base
     token = params[:token]
     redirect to '/login' unless token and !token.blank?
     user = Models::User.find(:password_reset_token => token)
-    unless user
+    unless user && !user.password_reset_token_expired?
       flash[:error] = "Password reset token is invalid."
       redirect to '/login'
     end

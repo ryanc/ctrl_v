@@ -60,5 +60,10 @@ module Models
     def before_save
       generate_activation_token if new?
     end
+
+    def password_reset_token_expired?
+      t = Time.now
+      t > (password_reset_token_generated_at + 1800)
+    end
   end
 end
