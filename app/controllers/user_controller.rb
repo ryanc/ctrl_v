@@ -136,6 +136,8 @@ class App < Sinatra::Base
     if user.valid?
       user.save
       flash[:success] = "A new password has been set."
+      # destroy the reset session
+      session.delete :reset
       redirect to '/login'
     else
       @errors = user.errors
