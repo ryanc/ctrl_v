@@ -120,6 +120,7 @@ class App < Sinatra::Base
     user.clear_password_reset_token
     user.save
     session[:reset] = true
+    session[:reset_uid] = user.id
     redirect to '/user/reset_password'
   end
 
@@ -130,18 +131,13 @@ class App < Sinatra::Base
 
   post '/user/reset_password' do
     redirect to '/login' unless session[:reset]
-    user = Models::User.find(:password_reset_token => params[:token])
+    user = Models::User.find(:id => session[:reset_uid])
     user.password = params[:password]
     user.password_confirmation = params[:password_confirmation]
-    if user.valid?
-      user.save
-      flash[:success] = "A new password has been set."
-      # destroy the reset session
-      session.delete :reset
-      redirect to '/login'
-    else
-      @errors = user.errors
-      mustache :reset_password
-    end
+    user.save
+    flash[:success] = "A new password has been set."
+    # destroy the reset session
+    session.delete :reset
+    redirect to '/login'
   end
 end
