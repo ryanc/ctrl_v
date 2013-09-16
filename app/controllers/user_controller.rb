@@ -117,7 +117,7 @@ class App < Sinatra::Base
       flash[:error] = "Password reset token is invalid."
       redirect to '/login'
     end
-    user.password_reset_token = nil
+    user.clear_password_reset_token
     user.save
     session[:reset] = true
     redirect to '/user/reset_password'

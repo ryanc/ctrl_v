@@ -65,5 +65,10 @@ module Models
       t = Time.now
       t > (password_reset_token_generated_at + 1800)
     end
+
+    def clear_password_reset_token
+      self.password_reset_token = nil
+      self.password_reset_token_generated_at = nil
+    end
   end
 end
