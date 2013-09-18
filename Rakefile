@@ -6,7 +6,7 @@ require "rake"
 require "yaml"
 require "sequel"
 
-env = ENV['RACK_ENV'] || 'production'
+env = ENV['RACK_ENV'] || 'development'
 DB = Sequel.connect(ENV['DATABASE_URL'] || YAML.load_file('config/database.yml')[env])
 
 desc 'Generate the session secret.'
