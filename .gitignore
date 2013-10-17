@@ -5,3 +5,5 @@ config/secret.key
 Capfile
 config/deploy.rb
 config/settings.yml
+config/deploy/production.rb
+config/deploy/staging.rb

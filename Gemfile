@@ -32,5 +32,6 @@ group :development do
   gem 'rake'
   gem 'pry'
   gem 'capistrano'
-  gem 'capistrano-unicorn'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rbenv', github: 'capistrano/rbenv'
 end
