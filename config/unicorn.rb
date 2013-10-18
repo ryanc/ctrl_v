@@ -10,3 +10,8 @@ stdout_path "#{shared_path}/log/unicorn.stdout.log"
 preload_app true
 GC.respond_to?(:copy_on_write_friendly=) and
   GC.copy_on_write_friendly = true
+
+before_fork do |server, worker|
+  defined?(DB) and
+    DB.disconnect
+end
