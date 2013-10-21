@@ -6,10 +6,11 @@ require_relative '../models/security_log.rb'
 
 def security_log(uid, action, note = nil)
   Models::SecurityLog.create(
-    :user_id => uid,
-    :action  => action,
-    :ip_addr => request.ip,
-    :note    => note,
+    :user_id    => uid,
+    :action     => action,
+    :ip_addr    => request.ip,
+    :user_agent => request.user_agent,
+    :note       => note,
   )
 end
 
