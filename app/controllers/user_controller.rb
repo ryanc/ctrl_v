@@ -2,12 +2,26 @@ require 'rack-flash'
 require 'pony'
 
 require_relative '../models/user.rb'
+require_relative '../models/security_log.rb'
+
+def security_log(uid, action, note = nil)
+  Models::SecurityLog.create(
+    :user_id => uid,
+    :action  => action,
+    :ip_addr => request.ip,
+    :note    => note,
+  )
+end
 
 # Handle all user related requests.
 class App < Sinatra::Base
   helpers do
     def authenticated?; session[:uid]; end
     def protected!; redirect to '/login' unless authenticated?; end
+  end
+
+  before do
+    @uid ||= session[:uid]
   end
 
   def registered?(username)
@@ -24,7 +38,10 @@ class App < Sinatra::Base
       if user.authenticate(params[:password])
         session[:uid] = user.id
         Models::User.where(:id => user.id).update(:last_seen_at => Time.now)
+        security_log(user.id, 'user.login')
         redirect to '/new'
+      else
+        security_log(user.id, 'user.failed_login')
       end
     end
     flash[:error] = "The username or password is incorrect."
@@ -33,7 +50,10 @@ class App < Sinatra::Base
 
   get '/logout' do
     flash[:success] = "You have been logged out."
-    session[:uid] = nil
+    if session[:uid]
+      security_log(@uid, 'user.logout')
+      session[:uid] = nil
+    end
     redirect to '/login' 
   end
 
@@ -138,6 +158,7 @@ class App < Sinatra::Base
     flash[:success] = "A new password has been set."
     # destroy the reset session
     session.delete :reset
+    security_log(user.id, 'user.password_reset')
     redirect to '/login'
   end
 end
