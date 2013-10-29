@@ -26,7 +26,7 @@ class App < Sinatra::Base
   end
 
   get '/p/:id' do
-    cache_control :max_age => 86400
+    cache_control :s_max_age => 86400
     @paste = Models::Paste.find(:id_b62 => params[:id], :active => true, :spam => false)
     halt(404) if @paste.nil?
     if params.has_key? 'raw'
