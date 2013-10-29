@@ -12,7 +12,7 @@ DB = Sequel.connect(ENV['DATABASE_URL'] || YAML.load_file('config/database.yml')
 
 class App < Sinatra::Base
   # enable sessions
-  enable :sessions
+  use Rack::Session::Pool
 
   # register plugins
   register Mustache::Sinatra
