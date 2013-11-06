@@ -35,10 +35,12 @@ class App < Sinatra::Base
   end
 
   before do
-    @uid = session[:uid]
+    @uid = session[:uid] if session and session.has_key?(:uid)
     @current_user = Models::User.find(:id => @uid)
-    @flash_error = flash[:error]
-    @flash_success = flash[:success]
+    if session.exists? and flash
+      @flash_error = flash[:error] if flash.has?(:error)
+      @flash_success = flash[:success] if flash.has?(:success)
+    end
   end
 end
 
