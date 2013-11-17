@@ -6,7 +6,7 @@ Sequel.migration do
       String :action, :null => false
       String :note
       String :ip_addr, :null => false
-      DateTime :created_at, :default => Sequel.lit("CURRENT_TIMESTAMP")
+      DateTime :created_at, :default => Sequel::CURRENT_TIMESTAMP
     end
   end
   down do

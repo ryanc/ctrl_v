@@ -6,7 +6,7 @@ Sequel.migration do
       String :username, :null => false, :unique => true
       String :email, :null => false, :unique => true
       String :password_hash, :null => false
-      DateTime :created_at, :default => Sequel.lit("CURRENT_TIMESTAMP")
+      DateTime :created_at, :default => Sequel::CURRENT_TIMESTAMP
       DateTime :last_seen_at
       DateTime :updated_at
     end
