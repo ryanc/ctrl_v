@@ -5,7 +5,7 @@ class App
         @paste
       end
 
-      def owner?
+      def delete?
         signed_in? and @paste.user_id == @current_user.id
       end
     end
