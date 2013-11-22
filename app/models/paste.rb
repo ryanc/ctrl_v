@@ -39,5 +39,9 @@ module Models
       self.save
       super
     end
+
+    def owner?(id)
+      user_id == id && !user_id.nil?
+    end
   end
 end
