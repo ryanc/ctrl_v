@@ -12,7 +12,7 @@ DB = Sequel.connect(ENV['DATABASE_URL'] || YAML.load_file('config/database.yml')
 
 class App < Sinatra::Base
   # enable sessions
-  enable :sessions
+  use Rack::Session::Cookie, :secret => File.read('config/secret.key')
 
   # register plugins
   register Mustache::Sinatra
@@ -29,10 +29,6 @@ class App < Sinatra::Base
     :views => 'app/views',
     :templates => 'app/templates',
   }
-
-  configure do
-    set :session_secret, File.read('config/secret.key')
-  end
 
   before do
     @uid = session[:uid] if session and session.has_key?(:uid)
