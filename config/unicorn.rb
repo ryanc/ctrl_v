@@ -1,14 +1,18 @@
-application = "ctrl_v"
-deploy_to = "/srv/apps/#{application}"
-shared_path = "#{deploy_to}/shared"
+app_path = File.expand_path(File.expand_path(File.dirname(__FILE__)) + '/../')
+working_directory app_path
 
-worker_processes 2
-listen "#{shared_path}/tmp/sockets/unicorn.sock"
+worker_processes (ENV['UNICORN_WORKERS'] || 2).to_i
+
+listen "#{app_path}/tmp/sockets/unicorn.sock"
 listen 8080
-pid "#{shared_path}/tmp/pids/unicorn.pid"
-stderr_path "#{shared_path}/log/unicorn.stderr.log"
-stdout_path "#{shared_path}/log/unicorn.stdout.log"
+
+pid "#{app_path}/tmp/pids/unicorn.pid"
+
+stderr_path "#{app_path}/log/unicorn.stderr.log"
+stdout_path "#{app_path}/log/unicorn.stdout.log"
+
 preload_app true
+
 GC.respond_to?(:copy_on_write_friendly=) and
   GC.copy_on_write_friendly = true
 
