@@ -21,6 +21,8 @@ gem 'bcrypt-ruby'
 # email
 gem 'pony'
 
+gem 'rake'
+
 group :deployment do
   gem 'unicorn'
 end
@@ -29,7 +31,6 @@ group :development do
   gem 'shotgun'
   gem 'sass'
   gem 'foreman'
-  gem 'rake'
   gem 'pry'
   gem 'capistrano'
   gem 'capistrano-bundler'
