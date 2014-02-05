@@ -12,6 +12,10 @@ class App
       def signed_in?
         @uid.nil? == false
       end
+
+      def use_cdn?
+        true
+      end
     end
   end
 end

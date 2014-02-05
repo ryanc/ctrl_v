@@ -4,13 +4,22 @@
   <meta charset="utf-8">
   <title>ctrl-v</title>
   <link rel="shortcut icon" href="/favicon.png" />
+  {{#use_cdn?}}
+  <link type="text/css" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.0/normalize.min.css" />
+  <link type="text/css" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/styles/tomorrow.min.css" class="theme" />
+  <script src="//cdnjs.cloudflare.com/ajax/libs/zepto/1.1.2/zepto.min.js"></script>
+  <script src="/js/zepto.cookie.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/highlight.min.js"></script>
+  {{/use_cdn?}}
+  {{^use_cdn?}}
   <link type="text/css" rel="stylesheet" href="/css/normalize.css" />
-  <link type="text/css" rel="stylesheet" href="/css/style.css" />
-  <link type="text/css" rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro|Open+Sans" />
   <link type="text/css" rel="stylesheet" href="/css/themes/tomorrow.css" class="theme" />
   <script src="/js/zepto.min.js"></script>
   <script src="/js/zepto.cookie.min.js"></script>
   <script src="/js/highlight.pack.js"></script>
+  {{/use_cdn?}}
+  <link type="text/css" rel="stylesheet" href="/css/style.css" />
+  <link type="text/css" rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro|Open+Sans" />
   <script>hljs.initHighlightingOnLoad();</script>
 </head>
 <body>
