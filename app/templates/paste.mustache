@@ -1,15 +1,14 @@
 {{#paste}}
 <div>
-  <ul id="pasteOptions">
-    <li><a class="smooth-button" href="/p/{{id_b62}}?raw">Raw</a></li>
-    <li><a class="smooth-button" href="/p/{{id_b62}}?download">Download</a></li>
-    <li><a class="smooth-button" href="/p/{{id_b62}}?clone">Clone</a></li>
+  <div class="btn-group pull-right">
+    <a class="btn btn-default" role="button" href="/p/{{id_b62}}?raw">Raw</a>
+    <a class="btn btn-default" role="button" href="/p/{{id_b62}}?download">Download</a>
+    <a class="btn btn-default" role="button" href="/p/{{id_b62}}?clone">Clone</a>
     {{#delete?}}
-    <li><a class="smooth-button" href="/p/{{id_b62}}?delete">Delete</a></li>
+    <a class="btn btn-default" role="button" href="/p/{{id_b62}}?delete">Delete</a>
     {{/delete?}}
-  </ul>
+  </div>
 </div>
-<div class="clear"></div>
 <div class="paste">
   {{#highlighted?}}
   <pre><code>{{content}}</code></pre>

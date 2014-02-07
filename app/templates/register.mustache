@@ -1,35 +1,47 @@
 {{>messages}}
-<form action="/register" method="post">
-  <div class="group">
-    <label for="name">Name</label>
-    <input type="text" name="name" />
+<form action="/register" method="post" class="form-horizontal" role="form">
+  <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">Name</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" name="name" />
+    </div>
   </div>
 
-  <div class="group">
-    <label for="username" class="required">Username</label>
-    <input type="text" name="username" required />
-    {{#errors}}{{#username}}<span class="form-error">{{.}}</span>{{/username}}{{/errors}}
+  <div class="form-group">
+    <label for="username" class="col-sm-2 control-label">Username</label>
+    <div class="col-sm-10">
+      <input type="text" name="username" class="form-control" required />
+      {{#errors}}{{#username}}<span class="form-error">{{.}}</span>{{/username}}{{/errors}}
+    </div>
   </div>
 
-  <div class="group">
-    <label for="email" class="required">Email</label>
-    <input type="email" name="email" required />
-    {{#errors}}{{#email}}<span class="form-error">{{.}}</span>{{/email}}{{/errors}}
+  <div class="form-group">
+    <label for="email" class="col-sm-2 control-label">Email</label>
+    <div class="col-sm-10">
+      <input type="email" name="email" class="form-control" required />
+      {{#errors}}{{#email}}<span class="form-error">{{.}}</span>{{/email}}{{/errors}}
+    </div>
   </div>
 
-  <div class="group">
-    <label for="password" class="required">Password</label>
-    <input type="password" name="password" required />
-    {{#errors}}{{#password}}<span class="form-error">{{.}}</span>{{/password}}{{/errors}}
+  <div class="form-group">
+    <label for="password" class="col-sm-2 control-label">Password</label>
+    <div class="col-sm-10">
+      <input type="password" name="password" class="form-control" required />
+      {{#errors}}{{#password}}<span class="form-error">{{.}}</span>{{/password}}{{/errors}}
+    </div>
   </div>
 
- <div class="group">
-    <label for="password_confirmation" class="required">Password (Confirm)</label>
-    <input type="password" name="password_confirmation" required />
-    {{#errors}}{{#password_confirmation}}<span class="form-error">{{.}}</span>{{/password_confirmation}}{{/errors}}
+ <div class="form-group">
+    <label for="password_confirmation" class="col-sm-2 control-label">Password (Confirm)</label>
+    <div class="col-sm-10">
+      <input type="password" name="password_confirmation" required class="form-control" />
+      {{#errors}}{{#password_confirmation}}<span class="form-error">{{.}}</span>{{/password_confirmation}}{{/errors}}
+    </div>
   </div>
 
-  <div class="group">
-    <button type="submit" class="button-main">Register</button>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary">Register</button>
+    </div>
   </div>
 </form>

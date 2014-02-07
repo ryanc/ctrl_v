@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <title>ctrl-v</title>
   <link rel="shortcut icon" href="/favicon.png" />
   {{#use_cdn?}}
   <link type="text/css" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.0/normalize.min.css" />
+  <link type="text/css" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.0/css/bootstrap.min.css" />
   <link type="text/css" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/styles/tomorrow.min.css" class="theme" />
   <script src="//cdnjs.cloudflare.com/ajax/libs/zepto/1.1.2/zepto.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/highlight.min.js"></script>
@@ -21,23 +22,25 @@
   <script>hljs.initHighlightingOnLoad();</script>
 </head>
 <body>
-<div id="top-bar">
-  <div id="logo">
-    <a href="/">ctrl-v</a>
+  <nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">ctrl-v</a>
+    </div>
+    <div class="container-fluid">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/new">New</a></li>
+        <li><a href="/latest">Latest</a></li>
+        {{^signed_in?}}
+        <li><a href="/login">Sign In</a></li>
+        {{/signed_in?}}
+        {{#signed_in?}}
+        <li><a href="/logout">Sign Out</a></li>
+        {{/signed_in?}}
+      </ul>
+    </div>
+  </nav>
+  <div class="container-fluid">
+  {{{yield}}}
   </div>
-  <ul id="navigation">
-      <li><a href="/new">New</a></li>
-      <li><a href="/latest">Latest</a></li>
-      {{^signed_in?}}
-      <li><a href="/login">Sign In</a></li>
-      {{/signed_in?}}
-      {{#signed_in?}}
-      <li><a href="/logout">Sign Out</a></li>
-      {{/signed_in?}}
-  </ul>
-</div>
-<div id="content">
-{{{yield}}}
-</div>
 </body>
 </html>
