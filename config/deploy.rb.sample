@@ -1,7 +1,5 @@
 set :application, 'ctrl_v'
 set :repo_url, 'http://git.cavi.cc/r/ctrl_v.git'
-set :rbenv_type, :user
-set :rbenv_ruby, '2.0.0-p247'
 
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
@@ -38,9 +36,7 @@ namespace :deploy do
           fi
         else \
           cd #{current_path}
-          RBENV_ROOT=~/.rbenv
-          RBENV_VERSION=#{fetch(:rbenv_ruby)}
-          ~/.rbenv/bin/rbenv exec bundle exec unicorn -D \
+          bundle exec unicorn -D \
             -c #{fetch(:unicorn_config_path)} \
             -E production
         fi
