@@ -1,5 +1,6 @@
 textarea#paste {
   height: 500px;
+  font-family: monospace;
 }
 
 #_hp {
@@ -15,4 +16,8 @@ div#login {
   max-width: 330px;
   padding: 15px;
   margin: 0 auto;
+}
+
+pre, pre code {
+  font-family: "Source Code Pro", monospace;
 }
