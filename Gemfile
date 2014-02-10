@@ -34,5 +34,4 @@ group :development do
   gem 'pry'
   gem 'capistrano'
   gem 'capistrano-bundler'
-  gem 'capistrano-rbenv', github: 'capistrano/rbenv'
 end
