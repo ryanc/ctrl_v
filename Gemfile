@@ -25,6 +25,7 @@ gem 'rake'
 
 group :deployment do
   gem 'unicorn'
+  gem 'newrelic_rpm'
 end
 
 group :development do
@@ -34,4 +35,5 @@ group :development do
   gem 'pry'
   gem 'capistrano'
   gem 'capistrano-bundler'
+  gem 'capistrano3-unicorn'
 end

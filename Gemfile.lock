@@ -12,6 +12,8 @@ GEM
     capistrano-bundler (1.1.2)
       capistrano (~> 3.0)
       sshkit (~> 1.2)
+    capistrano3-unicorn (0.1.0)
+      capistrano (>= 3.1.0)
     coderay (1.1.0)
     dotenv (0.10.0)
     foreman (0.63.0)
@@ -29,6 +31,7 @@ GEM
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.8.0)
+    newrelic_rpm (3.7.3.204)
     pg (0.17.1)
     polyglot (0.3.4)
     pony (1.8)
@@ -90,8 +93,10 @@ DEPENDENCIES
   bcrypt-ruby
   capistrano
   capistrano-bundler
+  capistrano3-unicorn
   foreman
   mustache
+  newrelic_rpm
   pg
   pony
   pry
