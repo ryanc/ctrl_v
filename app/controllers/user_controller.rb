@@ -36,11 +36,11 @@ class App < Sinatra::Base
 
   post '/login' do
     user = Models::User.where(:username => params[:username], :active => true).first
-    if user
-      if user.authenticate(params[:password])
-        login_succeeded(user)
-      end
+
+    if user && user.authenticate(params[:password])
+      login_succeeded(user)
     end
+
     login_failed
   end
 
