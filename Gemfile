@@ -16,7 +16,7 @@ gem 'pg'
 gem 'mustache'
 
 # passwords
-gem 'bcrypt-ruby'
+gem 'bcrypt'
 
 # email
 gem 'pony'
