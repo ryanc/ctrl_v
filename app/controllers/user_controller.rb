@@ -3,6 +3,18 @@ require 'pony'
 
 require_relative '../models/user.rb'
 
+def login_succeeded(user)
+  session[:uid] = user.id
+  user.last_seen_at = Time.now
+  user.save
+  redirect to '/new'
+end
+
+def login_failed
+  flash[:error] = "The username or password is incorrect."
+  redirect to '/login'
+end
+
 # Handle all user related requests.
 class App < Sinatra::Base
   helpers do
@@ -26,13 +38,10 @@ class App < Sinatra::Base
     user = Models::User.where(:username => params[:username], :active => true).first
     if user
       if user.authenticate(params[:password])
-        session[:uid] = user.id
-        Models::User.where(:id => user.id).update(:last_seen_at => Time.now)
-        redirect to '/new'
+        login_succeeded(user)
       end
     end
-    flash[:error] = "The username or password is incorrect."
-    redirect to '/login'
+    login_failed
   end
 
   get '/logout' do
