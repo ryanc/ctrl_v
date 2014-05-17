@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ctrl-v</title>
+  <link rel="shortcut icon" href="/favicon.png" />
+  <% if use_cdn? %>
+  <link type="text/css" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.0/normalize.min.css" />
+  <link type="text/css" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.min.css" />
+  <link type="text/css" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/styles/tomorrow.min.css" class="theme" />
+  <script src="//cdnjs.cloudflare.com/ajax/libs/zepto/1.1.2/zepto.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/highlight.min.js"></script>
+  <% else %>
+  <link type="text/css" rel="stylesheet" href="/css/normalize.css" />
+  <link type="text/css" rel="stylesheet" href="/css/themes/tomorrow.css" class="theme" />
+  <script src="/js/zepto.min.js"></script>
+  <script src="/js/highlight.pack.js"></script>
+  <% end %>
+  <link type="text/css" rel="stylesheet" href="/css/style.css" />
+  <link type="text/css" rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro|Open+Sans" />
+  <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+  <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">ctrl-v</a>
+    </div>
+    <div class="container-fluid">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/new">New</a></li>
+        <li><a href="/latest">Latest</a></li>
+        <% if logged_in? %>
+        <li><a href="/logout">Sign Out</a></li>
+        <% else %>
+        <li><a href="/login">Sign In</a></li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
+  <div class="container-fluid">
+  <%= yield %>
+  </div>
+</body>
+</html>
