@@ -43,6 +43,20 @@ class App < Sinatra::Base
       Rack::Utils.escape_html(text)
     end
   end
+
+  private
+
+  def current_user
+    @current_user ||= Models::User[session[:uid]]
+  end
+
+  def use_cdn?
+    true
+  end
+
+  def logged_in?
+    current_user != nil
+  end
 end
 
 require_relative 'app/controllers/user_controller.rb'
