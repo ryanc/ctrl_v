@@ -35,8 +35,8 @@ module Models
       super
     end
 
-    def owner?(id)
-      user_id == id && !user_id.nil?
+    def owner?(user)
+      user && user_id == user.id
     end
   end
 end
