@@ -9,11 +9,6 @@ module Models
     many_to_one :content
     many_to_one :user
 
-    def filename
-      filename = super
-      filename.nil? ? "#{self.id}.txt" : filename
-    end
-
     def highlight?
       self.highlight
     end
