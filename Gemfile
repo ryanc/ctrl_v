@@ -20,8 +20,6 @@ gem 'pony'
 
 gem 'rake'
 
-gem 'newrelic_rpm'
-
 group :deployment do
   gem 'unicorn'
 end
