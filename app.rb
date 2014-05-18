@@ -36,6 +36,7 @@ class App < Sinatra::Base
     if session.exists? and flash
       @flash_error = flash[:error] if flash.has?(:error)
       @flash_success = flash[:success] if flash.has?(:success)
+    end
   end
 
   helpers do
