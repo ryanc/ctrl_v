@@ -14,7 +14,6 @@ class App < Sinatra::Base
   use Rack::Session::Cookie, :secret => File.read('config/secret.key')
 
   # register plugins
-  register Mustache::Sinatra
   register Sinatra::ConfigFile
   use Rack::Flash
 
