@@ -25,20 +25,6 @@ class App < Sinatra::Base
   # load the configuration file
   config_file 'config/settings.yml'
 
-  set :mustache, {
-    :views => 'app/views',
-    :templates => 'app/templates',
-  }
-
-  before do
-    @uid = session[:uid] if session and session.has_key?(:uid)
-    @current_user = Models::User.find(:id => @uid)
-    if session.exists? and flash
-      @flash_error = flash[:error] if flash.has?(:error)
-      @flash_success = flash[:success] if flash.has?(:success)
-    end
-  end
-
   helpers do
     def e(text)
       Rack::Utils.escape_html(text)
