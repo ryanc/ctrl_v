@@ -39,15 +39,15 @@ class App < Sinatra::Base
       headers['Content-Transfer-Encoding'] = 'binary'
       @paste.content.to_s
     elsif params.has_key? 'delete'
-      halt(403) unless @paste.owner?(@uid)
+      halt(403) unless @paste.owner?(current_user)
       @paste.active = false
       @paste.save
       flash[:success] = "Paste ##{@paste.id_b62} has been deleted."
       redirect to '/new'
     elsif params.has_key? 'clone'
-      mustache :new
+      erb :new
     else
-      mustache :paste
+      erb :paste
     end
   end
 
