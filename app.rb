@@ -19,9 +19,6 @@ class App < Sinatra::Base
   register Sinatra::ConfigFile
   use Rack::Flash
 
-  # mustache layout
-  require 'app/views/layout'
-
   # load the configuration file
   config_file 'config/settings.yml'
 
