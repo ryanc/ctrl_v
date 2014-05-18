@@ -58,6 +58,14 @@ class App < Sinatra::Base
   def logged_in?
     current_user != nil
   end
+
+  def base_url
+    unless [443, 80].include? @request.port
+      "#{@request.scheme}://#{@request.host}:#{@request.port}"
+    else
+      "#{@request.scheme}://#{@request.host}"
+    end
+  end
 end
 
 require_relative 'app/controllers/user_controller.rb'

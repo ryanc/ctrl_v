@@ -53,7 +53,7 @@ class App < Sinatra::Base
   end
 
   get '/register' do
-    mustache :register
+    erb :register
   end
 
   post '/register' do
@@ -66,8 +66,7 @@ class App < Sinatra::Base
       :password_confirmation => params[:password_confirmation],
     )
     unless @user.valid?
-      @errors = @user.errors
-      mustache :register
+      erb :register
     else
       @user.save
       @ip_addr = request.ip
@@ -76,7 +75,7 @@ class App < Sinatra::Base
         :to => @user.email,
         :from => 'no-reply@ctrl-v.io',
         :subject => 'CTRL-V Registration',
-        :body => mustache('email/activation', :layout => false),
+        :body => erb(:'email/activation', :layout => false),
         :via => settings.pony[:transport],
         :via_options => settings.pony[:smtp],
       )
@@ -154,5 +153,11 @@ class App < Sinatra::Base
     # destroy the reset session
     session.delete :reset
     redirect to '/login'
+  end
+
+  private
+
+  def activation_url(user)
+    "#{base_url}/user/activate?token=#{user.activation_token}"
   end
 end

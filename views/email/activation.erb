@@ -1,0 +1,8 @@
+Hi <%= @user.name || @user.username %>,
+
+Thank you for registering a CTRL-V account.
+
+<%= activation_url(@user) %> 
+
+Username: <%= @user.username %>
+IP Address: <%= @ip_addr %>
