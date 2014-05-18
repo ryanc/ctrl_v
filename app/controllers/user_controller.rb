@@ -140,7 +140,8 @@ class App < Sinatra::Base
 
   get '/user/reset_password' do
     redirect to '/login' unless session[:reset]
-    mustache :reset_password
+    @user = Models::User.find(:id => session[:reset_uid])
+    erb :reset_password
   end
 
   post '/user/reset_password' do
