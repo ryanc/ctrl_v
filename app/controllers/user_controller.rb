@@ -99,7 +99,7 @@ class App < Sinatra::Base
   end
 
   get '/user/forgot_password' do
-    mustache :forgot_password
+    erb :forgot_password
   end
 
   post '/user/forgot_password' do
@@ -113,7 +113,7 @@ class App < Sinatra::Base
         :to => @user.email,
         :from => 'no-reply@ctrl-v.io',
         :subject => 'CTRL-V Reset Password',
-        :body => mustache('email/forgot_password', :layout => false),
+        :body => erb(:'email/forgot_password', :layout => false),
         :via => settings.pony[:transport],
         :via_options => settings.pony[:smtp],
       )
@@ -159,5 +159,9 @@ class App < Sinatra::Base
 
   def activation_url(user)
     "#{base_url}/user/activate?token=#{user.activation_token}"
+  end
+
+  def password_reset_url(user)
+    "#{base_url}/user/validate_password_reset?token=#{user.password_reset_token}"
   end
 end
