@@ -2,7 +2,6 @@ $LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__))
 
 require 'sinatra/base'
 require 'rack-flash'
-require 'mustache/sinatra'
 require 'sequel'
 require 'yaml'
 require 'sinatra/config_file'
