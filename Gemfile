@@ -12,9 +12,6 @@ gem 'sequel'
 gem 'sequel_pg'
 gem 'pg'
 
-# templating
-gem 'mustache'
-
 # passwords
 gem 'bcrypt'
 
