@@ -5,7 +5,7 @@ require "securerandom"
 module Models
   class Sequel::Model
     def validates_password_confirmation(password)
-      errors.add('password_confirmation', "The passwords must match.") unless send(password) == send('password_confirmation')
+      errors.add(:password_confirmation, "The passwords must match.") unless send(password) == send('password_confirmation')
     end
   end
 
