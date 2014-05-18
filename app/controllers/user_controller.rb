@@ -31,7 +31,7 @@ class App < Sinatra::Base
   end
 
   get '/login' do
-    mustache :login
+    erb :login
   end
 
   post '/login' do
