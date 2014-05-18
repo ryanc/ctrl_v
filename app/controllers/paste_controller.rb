@@ -9,7 +9,8 @@ class App < Sinatra::Base
   end
 
   get '/new' do
-    mustache :new
+    @paste = Models::Paste.new
+    erb :new
   end
 
   post '/new' do
