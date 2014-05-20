@@ -2,6 +2,7 @@ require 'sequel'
 require 'radix62'
 
 module Models
+  # Paste model
   class Paste < Sequel::Model(:paste)
     plugin :timestamps
     plugin :boolean_readers

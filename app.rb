@@ -9,6 +9,7 @@ require 'sinatra/config_file'
 env = ENV['RACK_ENV'] || 'production'
 DB = Sequel.connect(ENV['DATABASE_URL'] || YAML.load_file('config/database.yml')[env])
 
+# Main application
 class App < Sinatra::Base
   # enable sessions
   use Rack::Session::Cookie, :secret => File.read('config/secret.key')

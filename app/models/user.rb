@@ -3,12 +3,14 @@ require 'bcrypt'
 require 'securerandom'
 
 module Models
+  # Add a custom validation question
   class Sequel::Model
     def validates_password_confirmation(password)
       errors.add(:password_confirmation, 'The passwords must match.') unless send(password) == send('password_confirmation')
     end
   end
 
+  # User model
   class User < Sequel::Model(:user)
     plugin :timestamps
     plugin :validation_helpers

@@ -1,6 +1,7 @@
 require 'sequel'
 
 module Models
+  # Paste content model
   class Content < Sequel::Model(:paste_content)
     plugin :timestamps
 

@@ -3,6 +3,7 @@ require 'rack-flash'
 require 'app/models/paste'
 require 'app/models/paste_content'
 
+# Paste controller
 class App < Sinatra::Base
   get '/' do
     redirect to '/new'

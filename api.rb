@@ -2,6 +2,7 @@ $LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__))
 
 require 'sinatra/base'
 
+# REST API
 class Api < Sinatra::Base
   use Rack::Auth::Basic, 'API requires authentication' do |username, password|
     user = Models::User.find(:username => username)
