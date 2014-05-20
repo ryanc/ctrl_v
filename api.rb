@@ -23,7 +23,7 @@ class Api < Sinatra::Base
       highlighted: params[:highlighted] || true,
       content: params[:content],
       user_id: Models::User.find(username: username).id,
-      ip_addr: request.ip,
+      ip_addr: request.ip
     )
     redirect to "/p/#{paste.id_b62}"
   end

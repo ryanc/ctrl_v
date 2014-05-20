@@ -63,7 +63,7 @@ class App < Sinatra::Base
       username: params[:username],
       email: params[:email],
       password: params[:password],
-      password_confirmation: params[:password_confirmation],
+      password_confirmation: params[:password_confirmation]
     )
     unless @user.valid?
       erb :register
@@ -77,7 +77,7 @@ class App < Sinatra::Base
         subject: 'CTRL-V Registration',
         body: erb(:'email/activation', layout: false),
         via: settings.pony[:transport],
-        via_options: settings.pony[:smtp],
+        via_options: settings.pony[:smtp]
       )
       flash[:success] = 'An email has been sent containing instructions to activate your account.'
       redirect to '/login'
@@ -115,7 +115,7 @@ class App < Sinatra::Base
         subject: 'CTRL-V Reset Password',
         body: erb(:'email/forgot_password', layout: false),
         via: settings.pony[:transport],
-        via_options: settings.pony[:smtp],
+        via_options: settings.pony[:smtp]
       )
     end
     flash[:success] = 'An email has been sent containing instructions on how to reset your password.'
