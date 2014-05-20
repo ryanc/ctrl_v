@@ -37,12 +37,5 @@ namespace :db do
       rasie 'VERSION is required' unless version
       Sequel::Migrator.run DB, 'db/migrations', :target => version
     end
-
-    desc 'Load the database with demo data.'
-    task :demo do
-      Dir['app/models/*.rb'].each { |f| require f }
-      seed_file = 'db/demo.rb'
-      load(seed_file) if File.exists?(seed_file)
-    end
   end
 end
