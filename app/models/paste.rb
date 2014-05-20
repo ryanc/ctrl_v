@@ -11,9 +11,7 @@ module Models
     many_to_one :user
 
     def highlighted=(h)
-      if [nil, false].include?(h)
-        super(false)
-      end
+      super(false) if [nil, false].include?(h)
     end
 
     def highlight?

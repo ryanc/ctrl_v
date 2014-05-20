@@ -41,18 +41,13 @@ class App < Sinatra::Base
   post '/login' do
     user = Models::User.where(username: params[:username], active: true).first
 
-    if user && user.authenticate(params[:password])
-      login_succeeded(user)
-    end
-
+    login_succeeded(user) if user && user.authenticate(params[:password])
     login_failed
   end
 
   get '/logout' do
     flash[:success] = 'You have been logged out.'
-    if session[:uid]
-      session[:uid] = nil
-    end
+    session[:uid] = nil if session[:uid]
     redirect to '/login' 
   end
 
