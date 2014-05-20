@@ -18,8 +18,12 @@ end
 # Handle all user related requests.
 class App < Sinatra::Base
   helpers do
-    def authenticated?; session[:uid]; end
-    def protected!; redirect to '/login' unless authenticated?; end
+    def authenticated?
+      session[:uid]
+    end
+    def protected!
+      redirect to '/login' unless authenticated?
+    end
   end
 
   before do
