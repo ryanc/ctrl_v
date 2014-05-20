@@ -26,8 +26,8 @@ class App < Sinatra::Base
   end
 
   get '/p/:id' do
-    cache_control :s_max_age => 86400
-    @paste = Models::Paste.find(:id_b62 => params[:id], :active => true, :spam => false)
+    cache_control s_max_age: 86400
+    @paste = Models::Paste.find(id_b62: params[:id], active: true, spam: false)
     halt(404) if @paste.nil?
     if params.key? 'raw'
       content_type 'text/plain'
@@ -51,7 +51,7 @@ class App < Sinatra::Base
   end
 
   get '/latest' do
-    id = Models::Paste.where(:active => true).order(:id).reverse.get(:id_b62)
+    id = Models::Paste.where(active: true).order(:id).reverse.get(:id_b62)
     if id.nil?
       redirect to '/new'
     else

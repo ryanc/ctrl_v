@@ -41,12 +41,12 @@ module Models
 
     def validate
       super
-      validates_presence :username, :message => 'The username cannot be blank.'
-      validates_presence :email, :message => 'The email address cannot be blank.'
-      validates_presence :password, :message => 'The password cannot be blank.' if new?
-      validates_presence :password_confirmation, :message => 'The password confirmation cannot be blank.' if new?
-      validates_unique :username, :message => 'The username is already taken.'
-      validates_unique :email, :message => 'The email address has already been used.'
+      validates_presence :username, message: 'The username cannot be blank.'
+      validates_presence :email, message: 'The email address cannot be blank.'
+      validates_presence :password, message: 'The password cannot be blank.' if new?
+      validates_presence :password_confirmation, message: 'The password confirmation cannot be blank.' if new?
+      validates_unique :username, message: 'The username is already taken.'
+      validates_unique :email, message: 'The email address has already been used.'
       validates_password_confirmation :password if new?
     end
 

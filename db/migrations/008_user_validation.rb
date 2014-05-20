@@ -2,7 +2,7 @@ Sequel.migration do
   up do
     alter_table :user do
       add_column :activation_token, String
-      add_column :active, FalseClass, :default => false
+      add_column :active, FalseClass, default: false
     end
   end
   down do

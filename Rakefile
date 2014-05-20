@@ -20,7 +20,7 @@ namespace :db do
   desc 'Migrate the database (options: VERSION=x).'
   task :migrate do
     version = ENV['VERSION'] ? ENV['VERSION'].to_i : nil
-    Sequel::Migrator.run DB, 'db/migrations', :target => version
+    Sequel::Migrator.run DB, 'db/migrations', target: version
   end
 
   namespace :migrate do
@@ -28,14 +28,14 @@ namespace :db do
     task :up do
       version = ENV['VERSION'] ? ENV['VERSION'].to_i : nil
       rasie 'VERSION is required' unless version
-      Sequel::Migrator.run DB, 'db/migrations', :target => version
+      Sequel::Migrator.run DB, 'db/migrations', target: version
     end
 
     desc 'Runs the "down" for a given migration VERSION.'
     task :down do
       version = ENV['VERSION'] ? ENV['VERSION'].to_i : nil
       rasie 'VERSION is required' unless version
-      Sequel::Migrator.run DB, 'db/migrations', :target => version
+      Sequel::Migrator.run DB, 'db/migrations', target: version
     end
   end
 end

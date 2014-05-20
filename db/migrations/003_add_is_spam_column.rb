@@ -1,7 +1,7 @@
 Sequel.migration do
   up do
     alter_table :paste do
-      add_column :is_spam, FalseClass, :default => false
+      add_column :is_spam, FalseClass, default: false
     end
   end
   down do

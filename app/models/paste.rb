@@ -21,11 +21,11 @@ module Models
     end
 
     def content=(content)
-      content = Content.new(:content => content)
+      content = Content.new(content: content)
 
       # Check if the content already exists in the database. Store only one
       # record if it does exist.
-      content_id = Content.where(:digest => content.digest).get(:id)
+      content_id = Content.where(digest: content.digest).get(:id)
 
       # Create the content if it does not exist.
       if content_id.nil?

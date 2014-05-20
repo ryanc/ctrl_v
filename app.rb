@@ -12,7 +12,7 @@ DB = Sequel.connect(ENV['DATABASE_URL'] || YAML.load_file('config/database.yml')
 # Main application
 class App < Sinatra::Base
   # enable sessions
-  use Rack::Session::Cookie, :secret => File.read('config/secret.key')
+  use Rack::Session::Cookie, secret: File.read('config/secret.key')
 
   # register plugins
   register Sinatra::ConfigFile

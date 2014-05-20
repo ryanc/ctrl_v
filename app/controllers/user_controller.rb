@@ -27,7 +27,7 @@ class App < Sinatra::Base
   end
 
   def registered?(username)
-    Models::User.where(:username => username).empty? == false
+    Models::User.where(username: username).empty? == false
   end
 
   get '/login' do
@@ -35,7 +35,7 @@ class App < Sinatra::Base
   end
 
   post '/login' do
-    user = Models::User.where(:username => params[:username], :active => true).first
+    user = Models::User.where(username: params[:username], active: true).first
 
     if user && user.authenticate(params[:password])
       login_succeeded(user)
@@ -59,11 +59,11 @@ class App < Sinatra::Base
   post '/register' do
     # Create the user
     @user = Models::User.new(
-      :name => params[:name],
-      :username => params[:username],
-      :email => params[:email],
-      :password => params[:password],
-      :password_confirmation => params[:password_confirmation],
+      name: params[:name],
+      username: params[:username],
+      email: params[:email],
+      password: params[:password],
+      password_confirmation: params[:password_confirmation],
     )
     unless @user.valid?
       erb :register
@@ -72,12 +72,12 @@ class App < Sinatra::Base
       @ip_addr = request.ip
       @request = request
       Pony.mail(
-        :to => @user.email,
-        :from => 'no-reply@ctrl-v.io',
-        :subject => 'CTRL-V Registration',
-        :body => erb(:'email/activation', :layout => false),
-        :via => settings.pony[:transport],
-        :via_options => settings.pony[:smtp],
+        to: @user.email,
+        from: 'no-reply@ctrl-v.io',
+        subject: 'CTRL-V Registration',
+        body: erb(:'email/activation', layout: false),
+        via: settings.pony[:transport],
+        via_options: settings.pony[:smtp],
       )
       flash[:success] = 'An email has been sent containing instructions to activate your account.'
       redirect to '/login'
@@ -85,7 +85,7 @@ class App < Sinatra::Base
   end
 
   get '/user/activate' do
-    user = Models::User.where(:activation_token => params[:token]).first
+    user = Models::User.where(activation_token: params[:token]).first
     if user
       user.activation_token = nil
       user.active = true
@@ -105,17 +105,17 @@ class App < Sinatra::Base
   post '/user/forgot_password' do
     @ip_addr = request.ip
     email = params[:email]
-    @user = Models::User.find(:email => email)
+    @user = Models::User.find(email: email)
     if @user
       @user.generate_password_reset_token if @user.password_reset_token.nil?
       @user.save
       Pony.mail(
-        :to => @user.email,
-        :from => 'no-reply@ctrl-v.io',
-        :subject => 'CTRL-V Reset Password',
-        :body => erb(:'email/forgot_password', :layout => false),
-        :via => settings.pony[:transport],
-        :via_options => settings.pony[:smtp],
+        to: @user.email,
+        from: 'no-reply@ctrl-v.io',
+        subject: 'CTRL-V Reset Password',
+        body: erb(:'email/forgot_password', layout: false),
+        via: settings.pony[:transport],
+        via_options: settings.pony[:smtp],
       )
     end
     flash[:success] = 'An email has been sent containing instructions on how to reset your password.'
@@ -126,7 +126,7 @@ class App < Sinatra::Base
     # missing reset token
     token = params[:token]
     redirect to '/login' unless token and !token.blank?
-    user = Models::User.find(:password_reset_token => token)
+    user = Models::User.find(password_reset_token: token)
     unless user && !user.password_reset_token_expired?
       flash[:error] = 'Password reset token is invalid.'
       redirect to '/login'
@@ -140,13 +140,13 @@ class App < Sinatra::Base
 
   get '/user/reset_password' do
     redirect to '/login' unless session[:reset]
-    @user = Models::User.find(:id => session[:reset_uid])
+    @user = Models::User.find(id: session[:reset_uid])
     erb :reset_password
   end
 
   post '/user/reset_password' do
     redirect to '/login' unless session[:reset]
-    user = Models::User.find(:id => session[:reset_uid])
+    user = Models::User.find(id: session[:reset_uid])
     user.password = params[:password]
     user.password_confirmation = params[:password_confirmation]
     user.save
