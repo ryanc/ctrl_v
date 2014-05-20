@@ -21,6 +21,7 @@ class App < Sinatra::Base
     def authenticated?
       session[:uid]
     end
+
     def protected!
       redirect to '/login' unless authenticated?
     end
