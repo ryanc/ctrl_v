@@ -32,4 +32,5 @@ group :development do
   gem 'capistrano'
   gem 'capistrano-bundler'
   gem 'capistrano3-unicorn'
+  gem 'rubocop'
 end
