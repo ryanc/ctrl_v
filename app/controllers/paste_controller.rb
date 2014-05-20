@@ -29,21 +29,21 @@ class App < Sinatra::Base
     cache_control :s_max_age => 86400
     @paste = Models::Paste.find(:id_b62 => params[:id], :active => true, :spam => false)
     halt(404) if @paste.nil?
-    if params.has_key? 'raw'
+    if params.key? 'raw'
       content_type 'text/plain'
       @paste.content.to_s
-    elsif params.has_key? 'download'
+    elsif params.key? 'download'
       headers['Content-Type'] = 'application/octet-stream'
       headers['Content-Disposition'] = "attachment; filename=#{@paste.filename}"
       headers['Content-Transfer-Encoding'] = 'binary'
       @paste.content.to_s
-    elsif params.has_key? 'delete'
+    elsif params.key? 'delete'
       halt(403) unless @paste.owner?(current_user)
       @paste.active = false
       @paste.save
       flash[:success] = "Paste ##{@paste.id_b62} has been deleted."
       redirect to '/new'
-    elsif params.has_key? 'clone'
+    elsif params.key? 'clone'
       erb :new
     else
       erb :paste
