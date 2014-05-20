@@ -48,7 +48,7 @@ class App < Sinatra::Base
   get '/logout' do
     flash[:success] = 'You have been logged out.'
     session[:uid] = nil if session[:uid]
-    redirect to '/login' 
+    redirect to '/login'
   end
 
   get '/register' do
