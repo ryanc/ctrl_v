@@ -3,7 +3,7 @@ $LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__))
 require 'sinatra/base'
 
 class Api < Sinatra::Base
-  use Rack::Auth::Basic, "API requires authentication" do |username, password|
+  use Rack::Auth::Basic, 'API requires authentication' do |username, password|
     user = Models::User.find(:username => username)
     user && user.authenticate(password)
   end
@@ -11,7 +11,7 @@ class Api < Sinatra::Base
   get '/paste/:id' do
     content_type 'text/plain'
     paste = Models::Paste.find(:id_b62 => params[:id])
-    halt 404, "Not Found" if paste.nil?
+    halt 404, 'Not Found' if paste.nil?
     paste.content.to_s
   end
 
@@ -29,7 +29,7 @@ class Api < Sinatra::Base
 
   delete '/paste/:id' do
     paste = Models::Paste.find(:id_b62 => params[:id])
-    halt 404, "Not Found" if paste.nil?
+    halt 404, 'Not Found' if paste.nil?
     paste.active = false
     paste.save
     204

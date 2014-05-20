@@ -1,5 +1,5 @@
-require "sequel"
-require "radix62"
+require 'sequel'
+require 'radix62'
 
 module Models
   class Paste < Sequel::Model(:paste)

@@ -1,4 +1,4 @@
-require "sequel"
+require 'sequel'
 
 module Models
   class Content < Sequel::Model(:paste_content)

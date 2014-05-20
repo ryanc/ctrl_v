@@ -2,9 +2,9 @@ $LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__))
 
 require 'bundler/setup'
 
-require "rake"
-require "yaml"
-require "sequel"
+require 'rake'
+require 'yaml'
+require 'sequel'
 
 env = ENV['RACK_ENV'] || 'development'
 DB = Sequel.connect(ENV['DATABASE_URL'] || YAML.load_file('config/database.yml')[env])

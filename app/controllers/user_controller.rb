@@ -11,7 +11,7 @@ def login_succeeded(user)
 end
 
 def login_failed
-  flash[:error] = "The username or password is incorrect."
+  flash[:error] = 'The username or password is incorrect.'
   redirect to '/login'
 end
 
@@ -45,7 +45,7 @@ class App < Sinatra::Base
   end
 
   get '/logout' do
-    flash[:success] = "You have been logged out."
+    flash[:success] = 'You have been logged out.'
     if session[:uid]
       session[:uid] = nil
     end
@@ -79,7 +79,7 @@ class App < Sinatra::Base
         :via => settings.pony[:transport],
         :via_options => settings.pony[:smtp],
       )
-      flash[:success] = "An email has been sent containing instructions to activate your account."
+      flash[:success] = 'An email has been sent containing instructions to activate your account.'
       redirect to '/login'
     end
   end
@@ -90,10 +90,10 @@ class App < Sinatra::Base
       user.activation_token = nil
       user.active = true
       user.save
-      flash[:success] = "Account activation complete."
+      flash[:success] = 'Account activation complete.'
       redirect to '/login'
     else
-      flash[:error] = "Invalid activation token."
+      flash[:error] = 'Invalid activation token.'
       redirect to '/register'
     end
   end
@@ -118,7 +118,7 @@ class App < Sinatra::Base
         :via_options => settings.pony[:smtp],
       )
     end
-    flash[:success] = "An email has been sent containing instructions on how to reset your password."
+    flash[:success] = 'An email has been sent containing instructions on how to reset your password.'
     redirect to '/login'
   end
 
@@ -128,7 +128,7 @@ class App < Sinatra::Base
     redirect to '/login' unless token and !token.blank?
     user = Models::User.find(:password_reset_token => token)
     unless user && !user.password_reset_token_expired?
-      flash[:error] = "Password reset token is invalid."
+      flash[:error] = 'Password reset token is invalid.'
       redirect to '/login'
     end
     user.clear_password_reset_token
@@ -150,7 +150,7 @@ class App < Sinatra::Base
     user.password = params[:password]
     user.password_confirmation = params[:password_confirmation]
     user.save
-    flash[:success] = "A new password has been set."
+    flash[:success] = 'A new password has been set.'
     # destroy the reset session
     session.delete :reset
     redirect to '/login'
