@@ -38,13 +38,6 @@ namespace :db do
       Sequel::Migrator.run DB, 'db/migrations', :target => version
     end
 
-    desc 'Load the database with seed data.'
-    task :seed do
-      Dir['app/models/*.rb'].each { |f| require f }
-      seed_file = 'db/seed.rb'
-      load(seed_file) if File.exists?(seed_file)
-    end
-
     desc 'Load the database with demo data.'
     task :demo do
       Dir['app/models/*.rb'].each { |f| require f }
