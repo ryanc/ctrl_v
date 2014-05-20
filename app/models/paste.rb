@@ -9,6 +9,12 @@ module Models
     many_to_one :content
     many_to_one :user
 
+    def highlighted=(h)
+      if [nil, false].include?(h)
+        super(false)
+      end
+    end
+
     def highlight?
       self.highlight
     end

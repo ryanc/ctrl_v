@@ -16,13 +16,11 @@ class App < Sinatra::Base
   post '/new' do
     # Honeypot test.
     halt 201 unless params[:_hp].empty?
-    paste = Models::Paste.create(
-      :filename => params[:filename],
-      :highlighted => !params[:highlighted].nil?,
-      :content => params[:content],
-      :user_id => @uid,
-      :ip_addr => request.ip,
-    )
+    paste = Models::Paste.new
+    paste.set_fields(params[:paste], paste_params)
+    paste.user = current_user
+    paste.ip_addr = request.ip
+    paste.save
     redirect to "/p/#{paste.id_b62}"
   end
 
@@ -58,5 +56,11 @@ class App < Sinatra::Base
     else
       redirect to "/p/#{id}"
     end
+  end
+
+  private
+
+  def paste_params
+    [:filename, :highlighted, :content]
   end
 end
