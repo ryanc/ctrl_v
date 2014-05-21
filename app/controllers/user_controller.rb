@@ -27,6 +27,7 @@ class App < Sinatra::Base
   end
 
   get '/register' do
+    @user = Models::User.new
     erb :register
   end
 
