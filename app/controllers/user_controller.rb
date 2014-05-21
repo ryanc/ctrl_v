@@ -38,7 +38,6 @@ class App < Sinatra::Base
     if @user.valid?
       @user.save
       @ip_addr = request.ip
-      @request = request
       activation_email(@user)
       flash[:success] = 'An email has been sent containing instructions to activate your account.'
       redirect to '/login'
