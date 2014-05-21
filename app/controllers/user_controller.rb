@@ -35,9 +35,7 @@ class App < Sinatra::Base
     # Create the user
     @user = Models::User.new
     @user.set_fields(params[:user], user_params)
-    unless @user.valid?
-      erb :register
-    else
+    if @user.valid?
       @user.save
       @ip_addr = request.ip
       @request = request
@@ -51,6 +49,8 @@ class App < Sinatra::Base
       )
       flash[:success] = 'An email has been sent containing instructions to activate your account.'
       redirect to '/login'
+    else
+      erb :register
     end
   end
 
