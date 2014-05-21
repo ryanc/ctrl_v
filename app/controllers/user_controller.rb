@@ -71,14 +71,7 @@ class App < Sinatra::Base
     if @user
       @user.generate_password_reset_token if @user.password_reset_token.nil?
       @user.save
-      Pony.mail(
-        to: @user.email,
-        from: 'no-reply@ctrl-v.io',
-        subject: 'CTRL-V Reset Password',
-        body: erb(:'email/forgot_password', layout: false),
-        via: settings.pony[:transport],
-        via_options: settings.pony[:smtp]
-      )
+      password_reset_email(@user)
     end
     flash[:success] = 'An email has been sent containing instructions on how to reset your password.'
     redirect to '/login'
@@ -148,6 +141,17 @@ class App < Sinatra::Base
       from: 'no-reply@ctrl-v.io',
       subject: 'CTRL-V Registration',
       body: erb(:'email/activation', layout: false),
+      via: settings.pony[:transport],
+      via_options: settings.pony[:smtp]
+    )
+  end
+
+  def password_reset_email(user)
+    Pony.mail(
+      to: user.email,
+      from: 'no-reply@ctrl-v.io',
+      subject: 'CTRL-V Reset Password',
+      body: erb(:'email/forgot_password', layout: false),
       via: settings.pony[:transport],
       via_options: settings.pony[:smtp]
     )
