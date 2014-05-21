@@ -70,8 +70,8 @@ class App < Sinatra::Base
     @user = Models::User.find(email: email)
     if @user
       @user.generate_password_reset_token if @user.password_reset_token.nil?
-      @user.save
       password_reset_email(@user)
+      @user.save
     end
     flash[:success] = 'An email has been sent containing instructions on how to reset your password.'
     redirect to '/login'
