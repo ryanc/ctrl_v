@@ -17,14 +17,6 @@ end
 
 # Handle all user related requests.
 class App < Sinatra::Base
-  before do
-    @uid ||= session[:uid]
-  end
-
-  def registered?(username)
-    Models::User.where(username: username).empty? == false
-  end
-
   get '/login' do
     erb :login
   end
