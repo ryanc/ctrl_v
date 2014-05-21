@@ -1,16 +1,16 @@
 <%= erb :flash %>
 <form action="/register" method="post" class="form-horizontal" role="form">
   <div class="form-group">
-    <label for="name" class="col-sm-2 control-label">Name</label>
+    <label for="user[name]" class="col-sm-2 control-label">Name</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" name="name" />
+      <input type="text" class="form-control" name="user[name]" />
     </div>
   </div>
 
   <div class="form-group <% if @user.errors.on(:username) %>has-error has-feedback<% end %>">
-    <label for="username" class="col-sm-2 control-label">Username</label>
+    <label for="user[username]" class="col-sm-2 control-label">Username</label>
     <div class="col-sm-10">
-      <input type="text" name="username" class="form-control" required />
+      <input type="text" name="user[username]" class="form-control" required />
       <% if @user && @user.errors.on(:username) %>
       <p class="help-block"><%= @user.errors[:username].join(',') %></p>
       <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -19,9 +19,9 @@
   </div>
 
   <div class="form-group <% if @user.errors.on(:email) %>has-error has-feedback<% end %>">
-    <label for="email" class="col-sm-2 control-label">Email</label>
+    <label for="user[email]" class="col-sm-2 control-label">Email</label>
     <div class="col-sm-10">
-      <input type="email" name="email" class="form-control" required />
+      <input type="email" name="user[email]" class="form-control" required />
       <% if @user && @user.errors.on(:email) %>
       <p class="help-block"><%= @user.errors[:email].join(',') %></p>
       <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -30,9 +30,9 @@
   </div>
 
   <div class="form-group <% if @user.errors.on(:password) %>has-error has-feedback<% end %>">
-    <label for="password" class="col-sm-2 control-label">Password</label>
+    <label for="user[password]" class="col-sm-2 control-label">Password</label>
     <div class="col-sm-10">
-      <input type="password" name="password" class="form-control" required />
+      <input type="password" name="user[password]" class="form-control" required />
       <% if @user && @user.errors.on(:password) %>
       <p class="help-block"><%= @user.errors[:password].join(',') %></p>
       <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -41,9 +41,9 @@
   </div>
 
   <div class="form-group <% if @user.errors.on(:password_confirmation) %>has-error has-feedback<% end %>">
-    <label for="password_confirmation" class="col-sm-2 control-label">Password (Confirm)</label>
+    <label for="user[password_confirmation]" class="col-sm-2 control-label">Password (Confirm)</label>
     <div class="col-sm-10">
-      <input type="password" name="password_confirmation" required class="form-control" />
+      <input type="password" name="user[password_confirmation]" required class="form-control" />
       <% if @user && @user.errors.on(:password_confirmation) %>
       <p class="help-block"><%= @user.errors[:password_confirmation].join(',') %></p>
       <span class="glyphicon glyphicon-remove form-control-feedback"></span>

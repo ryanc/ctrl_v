@@ -33,13 +33,8 @@ class App < Sinatra::Base
 
   post '/register' do
     # Create the user
-    @user = Models::User.new(
-      name: params[:name],
-      username: params[:username],
-      email: params[:email],
-      password: params[:password],
-      password_confirmation: params[:password_confirmation]
-    )
+    @user = Models::User.new
+    @user.set_fields(params[:user], user_params)
     unless @user.valid?
       erb :register
     else
@@ -132,6 +127,10 @@ class App < Sinatra::Base
   end
 
   private
+
+  def user_params
+    [:name, :username, :email, :password, :password_confirmation]
+  end
 
   def activation_url(user)
     "#{base_url}/user/activate?token=#{user.activation_token}"
