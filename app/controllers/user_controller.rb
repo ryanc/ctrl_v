@@ -30,7 +30,7 @@ class App < Sinatra::Base
 
   get '/logout' do
     flash[:success] = 'You have been logged out.'
-    session[:uid] = nil if session[:uid]
+    logout!
     redirect to '/login'
   end
 
@@ -146,5 +146,9 @@ class App < Sinatra::Base
 
   def password_reset_url(user)
     "#{base_url}/user/validate_password_reset?token=#{user.password_reset_token}"
+  end
+
+  def logout!
+    session[:uid] = nil if session[:uid]
   end
 end
