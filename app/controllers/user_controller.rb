@@ -39,14 +39,7 @@ class App < Sinatra::Base
       @user.save
       @ip_addr = request.ip
       @request = request
-      Pony.mail(
-        to: @user.email,
-        from: 'no-reply@ctrl-v.io',
-        subject: 'CTRL-V Registration',
-        body: erb(:'email/activation', layout: false),
-        via: settings.pony[:transport],
-        via_options: settings.pony[:smtp]
-      )
+      activation_email(@user)
       flash[:success] = 'An email has been sent containing instructions to activate your account.'
       redirect to '/login'
     else
@@ -148,5 +141,16 @@ class App < Sinatra::Base
 
   def logout!
     session[:uid] = nil if session[:uid]
+  end
+
+  def activation_email(user)
+    Pony.mail(
+      to: user.email,
+      from: 'no-reply@ctrl-v.io',
+      subject: 'CTRL-V Registration',
+      body: erb(:'email/activation', layout: false),
+      via: settings.pony[:transport],
+      via_options: settings.pony[:smtp]
+    )
   end
 end
