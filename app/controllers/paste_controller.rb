@@ -32,7 +32,7 @@ class App < Sinatra::Base
     erb :paste
   end
 
-  get '/p/:id/raw' do
+  get '/p/:id/text' do
     cache_control s_max_age: 86_400
     @paste = paste(params[:id])
     halt(404) if @paste.nil?
