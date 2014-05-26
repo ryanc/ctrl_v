@@ -75,6 +75,12 @@ class App < Sinatra::Base
     end
   end
 
+  get '/mine' do
+    halt(403) unless logged_in?
+    @pastes = Models::Paste.where(user: current_user).limit(10)
+    erb :mine
+  end
+
   private
 
   def paste(id)

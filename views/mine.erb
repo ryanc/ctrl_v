@@ -1,0 +1,10 @@
+<h2>My Pastes</h2>
+
+<% if @pastes.count > 0 %>
+  <ul>
+  <% @pastes.each do |p| %>
+    <li><a href="/p/<%= p.id_b62 %>"><%= p.id_b62 %> &mdash; posted on <%= p.created_at %></li>
+  <% end %>
+  </ul>
+<% else %>
+<% end %>
