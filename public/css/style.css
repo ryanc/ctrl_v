@@ -21,3 +21,7 @@ div#login {
 pre, pre code {
   font-family: "Source Code Pro", monospace;
 }
+
+span.paste-link {
+  font: monospace;
+}
