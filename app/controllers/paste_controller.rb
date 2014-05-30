@@ -77,7 +77,7 @@ class App < Sinatra::Base
 
   get '/mine' do
     halt(403) unless logged_in?
-    @pastes = Models::Paste.where(user: current_user)
+    @pastes = Models::Paste.where(user: current_user, active: true)
                            .order(:created_at).reverse
                            .limit(10)
     erb :mine
