@@ -3,7 +3,7 @@
 <% if @pastes.count > 0 %>
   <ul>
   <% @pastes.each do |p| %>
-    <li><a href="/p/<%= p.id_b62 %>"><span class="paste-link"><%= p.id_b62 %></span> &mdash; posted on <%= p.created_at %></li>
+    <li><a href="/p/<%= p.id_b62 %>"><span class="paste-link">#<%= p.id_b62 %></span> &mdash; posted on <%= p.created_at %></li>
   <% end %>
   </ul>
 <% else %>
