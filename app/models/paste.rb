@@ -10,6 +10,12 @@ module Models
     many_to_one :content
     many_to_one :user
 
+    dataset_module do
+      def active
+        where(active: true).where(spam: false)
+      end
+    end
+
     def highlighted=(h)
       super(false) if [nil, false].include?(h)
     end

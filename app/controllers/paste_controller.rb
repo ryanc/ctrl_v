@@ -27,14 +27,14 @@ class App < Sinatra::Base
 
   get '/p/:id' do
     cache_control s_max_age: 86_400
-    @paste = paste(params[:id])
+    @paste = Models::Paste.active.first(id_b62: params[:id])
     halt(404) if @paste.nil?
     erb :paste
   end
 
   get '/p/:id/text' do
     cache_control s_max_age: 86_400
-    @paste = paste(params[:id])
+    @paste = Models::Paste.active.first(id_b62: params[:id])
     halt(404) if @paste.nil?
     content_type 'text/plain'
     @paste.content.to_s
@@ -42,7 +42,7 @@ class App < Sinatra::Base
 
   get '/p/:id/download' do
     cache_control s_max_age: 86_400
-    @paste = paste(params[:id])
+    @paste = Models::Paste.active.first(id_b62: params[:id])
     halt(404) if @paste.nil?
     headers['Content-Type'] = 'application/octet-stream'
     headers['Content-Disposition'] = "attachment; filename=#{@paste.filename}"
@@ -51,13 +51,14 @@ class App < Sinatra::Base
   end
 
   get '/p/:id/clone' do
-    @paste = paste(params[:id])
+    @paste = Models::Paste.active.first(id_b62: params[:id])
     halt(404) if @paste.nil?
     erb :new
   end
 
   get '/p/:id/delete' do
-    @paste = paste(params[:id])
+    @paste = Models::Paste.active.first(id_b62: params[:id])
+    halt(404) if @paste.nil?
     halt(404) if @paste.nil?
     halt(403) unless @paste.owner?(current_user)
     @paste.active = false
@@ -84,10 +85,6 @@ class App < Sinatra::Base
   end
 
   private
-
-  def paste(id)
-    Models::Paste.find(id_b62: params[:id], active: true, spam: false)
-  end
 
   def paste_params
     [:filename, :highlighted, :content]
