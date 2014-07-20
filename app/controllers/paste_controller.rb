@@ -59,7 +59,6 @@ class App < Sinatra::Base
   get '/p/:id/delete' do
     @paste = Models::Paste.active.first(id_b62: params[:id])
     halt(404) if @paste.nil?
-    halt(404) if @paste.nil?
     halt(403) unless @paste.owner?(current_user)
     @paste.active = false
     @paste.save
