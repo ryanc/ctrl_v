@@ -14,6 +14,10 @@ module Models
       def active
         where(active: true).where(spam: false)
       end
+
+      def recent
+        order(:created_at).reverse
+      end
     end
 
     def highlighted=(h)
