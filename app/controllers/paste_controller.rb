@@ -76,7 +76,7 @@ class App < Sinatra::Base
   end
 
   get '/mine' do
-    halt(403) unless logged_in?
+    redirect '/login' unless logged_in?
     @pastes = Models::Paste.where(user: current_user, active: true)
                            .order(:created_at).reverse
                            .limit(10)
