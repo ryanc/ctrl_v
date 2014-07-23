@@ -33,4 +33,6 @@ group :development do
   gem 'capistrano-bundler'
   gem 'capistrano3-unicorn'
   gem 'rubocop'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end

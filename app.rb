@@ -5,12 +5,19 @@ require 'rack-flash'
 require 'sequel'
 require 'yaml'
 require 'sinatra/config_file'
+require 'better_errors'
 
 env = ENV['RACK_ENV'] || 'production'
 DB = Sequel.connect(ENV['DATABASE_URL'] || YAML.load_file('config/database.yml')[env])
 
 # Main application
 class App < Sinatra::Base
+
+  configure :development do
+    use BetterErrors::Middleware
+    BetterErrors.application_root = File.expand_path('..', __FILE__)
+  end
+
   # enable sessions
   use Rack::Session::Cookie, secret: File.read('config/secret.key')
 
