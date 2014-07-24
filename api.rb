@@ -5,20 +5,20 @@ require 'sinatra/base'
 # REST API
 class Api < Sinatra::Base
   use Rack::Auth::Basic, 'API requires authentication' do |username, password|
-    user = Models::User.find(username: username)
+    user = User.find(username: username)
     user && user.authenticate(password)
   end
 
   get '/paste/:id' do
     content_type 'text/plain'
-    @paste = Models::Paste.active.first(id_b62: params[:id])
+    @paste = Paste.active.first(id_b62: params[:id])
     halt 404, 'Not Found' if paste.nil?
     paste.content.to_s
   end
 
   post '/paste' do
     username = request.env['REMOTE_USER']
-    paste = Models::Paste.create(
+    paste = Paste.create(
       filename: params[:filename],
       highlighted: params[:highlighted] || true,
       content: params[:content],
@@ -29,7 +29,7 @@ class Api < Sinatra::Base
   end
 
   delete '/paste/:id' do
-    @paste = Models::Paste.active.first(id_b62: params[:id])
+    @paste = Paste.active.first(id_b62: params[:id])
     halt 404, 'Not Found' if paste.nil?
     paste.active = false
     paste.save

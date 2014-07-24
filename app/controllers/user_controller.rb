@@ -10,7 +10,7 @@ class App < Sinatra::Base
   end
 
   post '/login' do
-    user = Models::User.where(username: params[:username], active: true).first
+    user = User.where(username: params[:username], active: true).first
     if user && user.authenticate(params[:password])
       login!(user)
       redirect '/new'
@@ -27,13 +27,13 @@ class App < Sinatra::Base
   end
 
   get '/register' do
-    @user = Models::User.new
+    @user = User.new
     erb :register
   end
 
   post '/register' do
     # Create the user
-    @user = Models::User.new
+    @user = User.new
     @user.set_fields(params[:user], user_params)
     if @user.valid?
       @ip_addr = request.ip
@@ -47,7 +47,7 @@ class App < Sinatra::Base
   end
 
   get '/user/activate' do
-    user = Models::User.where(activation_token: params[:token]).first
+    user = User.where(activation_token: params[:token]).first
     if user
       user.activation_token = nil
       user.active = true
@@ -67,7 +67,7 @@ class App < Sinatra::Base
   post '/user/forgot_password' do
     @ip_addr = request.ip
     email = params[:email]
-    @user = Models::User.find(email: email)
+    @user = User.find(email: email)
     if @user
       @user.generate_password_reset_token if @user.password_reset_token.nil?
       password_reset_email(@user)
@@ -81,7 +81,7 @@ class App < Sinatra::Base
     # missing reset token
     token = params[:token]
     redirect to '/login' unless token and !token.blank?
-    user = Models::User.find(password_reset_token: token)
+    user = User.find(password_reset_token: token)
     unless user && !user.password_reset_token_expired?
       flash[:error] = 'Password reset token is invalid.'
       redirect to '/login'
@@ -95,13 +95,13 @@ class App < Sinatra::Base
 
   get '/user/reset_password' do
     redirect to '/login' unless session[:reset]
-    @user = Models::User.find(id: session[:reset_uid])
+    @user = User.find(id: session[:reset_uid])
     erb :reset_password
   end
 
   post '/user/reset_password' do
     redirect to '/login' unless session[:reset]
-    user = Models::User.find(id: session[:reset_uid])
+    user = User.find(id: session[:reset_uid])
     user.password = params[:password]
     user.password_confirmation = params[:password_confirmation]
     user.save
