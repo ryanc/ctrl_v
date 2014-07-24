@@ -5,7 +5,6 @@ require 'rack-flash'
 require 'sequel'
 require 'yaml'
 require 'sinatra/config_file'
-require 'better_errors'
 
 env = ENV['RACK_ENV'] || 'production'
 DB = Sequel.connect(ENV['DATABASE_URL'] || YAML.load_file('config/database.yml')[env])
@@ -14,6 +13,7 @@ DB = Sequel.connect(ENV['DATABASE_URL'] || YAML.load_file('config/database.yml')
 class App < Sinatra::Base
 
   configure :development do
+    require 'better_errors'
     use BetterErrors::Middleware
     BetterErrors.application_root = File.expand_path('..', __FILE__)
   end
