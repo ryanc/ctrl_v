@@ -71,7 +71,7 @@ class App < Sinatra::Base
     if paste.id.nil?
       redirect to '/new'
     else
-      redirect to "/p/#{paste.id}"
+      redirect to "/p/#{paste.id_b62}"
     end
   end
 
