@@ -44,8 +44,7 @@ class Paste < Sequel::Model(:paste)
   end
 
   def after_create
-    self.id_b62 = Radix62.encode62(self.id)
-    self.save
+    update(:id_b62 => Radix62.encode62(id))
     super
   end
 
