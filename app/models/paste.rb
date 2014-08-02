@@ -6,7 +6,6 @@ class Paste < Sequel::Model(:paste)
   plugin :timestamps
   plugin :boolean_readers
 
-  many_to_one :content
   many_to_one :user
 
   dataset_module do
@@ -25,22 +24,6 @@ class Paste < Sequel::Model(:paste)
 
   def highlight?
     self.highlight
-  end
-
-  def content=(content)
-    content = Content.new(content: content)
-
-    # Check if the content already exists in the database. Store only one
-    # record if it does exist.
-    content_id = Content.where(digest: content.digest).get(:id)
-
-    # Create the content if it does not exist.
-    if content_id.nil?
-      content.save
-      content_id = content.id
-    end
-
-    self.content_id = content_id
   end
 
   def after_create
