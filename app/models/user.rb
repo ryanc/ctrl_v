@@ -13,6 +13,7 @@ class User < Sequel::Model(:user)
   plugin :timestamps
   plugin :validation_helpers
   plugin :boolean_readers
+  plugin :string_stripper
 
   attr_reader :password
   attr_accessor :password_confirmation

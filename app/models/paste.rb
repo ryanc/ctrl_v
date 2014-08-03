@@ -6,6 +6,7 @@ class Paste < Sequel::Model(:paste)
   plugin :timestamps
   plugin :boolean_readers
   plugin :validation_helpers
+  plugin :string_stripper
 
   many_to_one :user
 
