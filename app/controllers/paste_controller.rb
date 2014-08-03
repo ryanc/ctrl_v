@@ -4,6 +4,8 @@ require 'app/models/paste'
 
 # Paste controller
 class App < Sinatra::Base
+  HISTORY_COUNT = 10
+
   get '/' do
     redirect to '/new'
   end
@@ -80,7 +82,7 @@ class App < Sinatra::Base
 
   get '/mine' do
     redirect '/login' unless logged_in?
-    @pastes = current_user.pastes_dataset.recent.active.limit(10)
+    @pastes = current_user.pastes_dataset.recent.active.limit(HISTORY_COUNT)
     erb :mine
   end
 
