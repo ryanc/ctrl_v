@@ -1,5 +1,8 @@
 <%= erb :flash %>
 <form action="/new" method="post">
+  <% @paste.errors.full_messages.each do |error_message| %>
+  <div class="alert alert-danger"><%= error_message %></div>
+  <% end %>
   <div class="form-group">
     <textarea id="paste" class="form-control" name="paste[content]"><%= e @paste.content %></textarea>
   </div>

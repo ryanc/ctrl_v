@@ -5,8 +5,14 @@ require 'radix62'
 class Paste < Sequel::Model(:paste)
   plugin :timestamps
   plugin :boolean_readers
+  plugin :validation_helpers
 
   many_to_one :user
+
+  def validate
+    super
+    validates_presence :content, message: Sequel.lit("The paste cannot be blank.")
+  end
 
   dataset_module do
     def active

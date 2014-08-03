@@ -16,12 +16,16 @@ class App < Sinatra::Base
   post '/new' do
     # Honeypot test.
     halt 201 unless params[:_hp].empty?
-    paste = Paste.new
-    paste.set_fields(params[:paste], paste_params)
-    paste.user = current_user
-    paste.ip_addr = request.ip
-    paste.save
-    redirect to "/p/#{paste.id_b62}"
+    @paste = Paste.new
+    @paste.set_fields(params[:paste], paste_params)
+    @paste.user = current_user
+    @paste.ip_addr = request.ip
+    if @paste.valid?
+      @paste.save
+      redirect to "/p/#{@paste.id_b62}"
+    else
+      erb :new
+    end
   end
 
   get '/p/:id' do
