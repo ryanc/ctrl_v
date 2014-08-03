@@ -71,7 +71,7 @@ class App < Sinatra::Base
 
   get '/latest' do
     paste = Paste.recent.active.first
-    if paste.id.nil?
+    if paste.nil?
       redirect to '/new'
     else
       redirect to "/p/#{paste.id_b62}"
