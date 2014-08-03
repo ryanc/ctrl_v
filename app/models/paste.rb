@@ -41,4 +41,8 @@ class Paste < Sequel::Model(:paste)
   def owner?(user)
     user && user_id == user.id
   end
+
+  def increment_view_count
+    update(:view_count => Sequel.+(:view_count, 1))
+  end
 end
