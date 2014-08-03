@@ -18,6 +18,8 @@ Sequel.migration do
       DateTime :updated_at
       String :content, :text=>true, :null=>false
     end
-    add_foreign_key :paste_content, :content_id, :paste_content, :key=>[:id]
+    alter_table(:paste) do
+      add_foreign_key :content_id, :paste_content, :key=>[:id]
+    end
   end
 end
