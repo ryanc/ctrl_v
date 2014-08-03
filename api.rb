@@ -11,7 +11,7 @@ class Api < Sinatra::Base
 
   get '/paste/:id' do
     content_type 'text/plain'
-    @paste = Paste.active.first(id_b62: params[:id])
+    @paste = Paste.first(id_b62: params[:id])
     halt 404, 'Not Found' if paste.nil?
     @paste.increment_view_count
     paste.content.to_s
@@ -30,10 +30,9 @@ class Api < Sinatra::Base
   end
 
   delete '/paste/:id' do
-    @paste = Paste.active.first(id_b62: params[:id])
+    @paste = Paste.first(id_b62: params[:id])
     halt 404, 'Not Found' if paste.nil?
-    paste.active = false
-    paste.save
+    paste.destroy
     204
   end
 end
