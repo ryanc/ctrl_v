@@ -80,9 +80,7 @@ class App < Sinatra::Base
 
   get '/mine' do
     redirect '/login' unless logged_in?
-    @pastes = Paste.where(user: current_user, active: true)
-                           .order(:created_at).reverse
-                           .limit(10)
+    @pastes = current_user.pastes_dataset.recent.active.limit(10)
     erb :mine
   end
 
