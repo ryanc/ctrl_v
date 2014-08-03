@@ -18,6 +18,8 @@ class User < Sequel::Model(:user)
   attr_reader :password
   attr_accessor :password_confirmation
 
+  one_to_many :pastes
+
   def password=(password)
     @password = password
     self.password_hash = BCrypt::Password.create(password)
