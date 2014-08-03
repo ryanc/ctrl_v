@@ -13,6 +13,7 @@ class Api < Sinatra::Base
     content_type 'text/plain'
     @paste = Paste.active.first(id_b62: params[:id])
     halt 404, 'Not Found' if paste.nil?
+    @paste.increment_view_count
     paste.content.to_s
   end
 

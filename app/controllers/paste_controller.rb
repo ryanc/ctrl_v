@@ -34,6 +34,7 @@ class App < Sinatra::Base
     cache_control s_max_age: 86_400
     @paste = Paste.active.first(id_b62: params[:id])
     halt(404) if @paste.nil?
+    @paste.increment_view_count
     erb :paste
   end
 
@@ -42,6 +43,7 @@ class App < Sinatra::Base
     @paste = Paste.active.first(id_b62: params[:id])
     halt(404) if @paste.nil?
     content_type 'text/plain'
+    @paste.increment_view_count
     @paste.content.to_s
   end
 
@@ -52,6 +54,7 @@ class App < Sinatra::Base
     headers['Content-Type'] = 'application/octet-stream'
     headers['Content-Disposition'] = "attachment; filename=#{@paste.filename}"
     headers['Content-Transfer-Encoding'] = 'binary'
+    @paste.increment_view_count
     @paste.content.to_s
   end
 
