@@ -1,7 +1,7 @@
 require 'rack-flash'
 require 'pony'
 
-require_relative '../models/user.rb'
+require 'app/models/user'
 
 # Handle all user related requests.
 class App < Sinatra::Base
