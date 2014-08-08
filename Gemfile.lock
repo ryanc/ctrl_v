@@ -132,6 +132,7 @@ DEPENDENCIES
   pony
   pry
   rack-flash3
+  rack-test
   radix62
   rake
   rspec
