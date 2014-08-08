@@ -1,11 +1,5 @@
 require 'spec_helper'
 
-ENV['RACK_ENV'] = 'test'
-
-require './app'
-require 'rspec'
-require 'rack/test'
-
 describe 'The ctrl-v Application' do
   include Rack::Test::Methods
 
