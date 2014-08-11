@@ -36,4 +36,9 @@ describe 'The ctrl-v Application' do
     expect(last_response.status).to eq(201)
     expect(last_response.location).to be_nil
   end
+
+  it 'paste not found' do
+    get '/p/1'
+    expect(last_response.status).to eq(404)
+  end
 end
