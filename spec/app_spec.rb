@@ -55,7 +55,6 @@ describe 'The ctrl-v Application' do
     get "#{paste_url}/text"
     expect(last_response.status).to eq(200)
     expect(last_response.body).to include('This is a test')
-    expect(last_response.headers).to include('Content-Type')
     expect(last_response.headers['Content-Type']).to include('text/plain')
   end
 end
