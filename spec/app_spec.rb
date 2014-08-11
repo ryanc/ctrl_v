@@ -41,4 +41,11 @@ describe 'The ctrl-v Application' do
     get '/p/1'
     expect(last_response.status).to eq(404)
   end
+
+  it 'view paste html' do
+    post '/new', { _hp: "", paste: { content: "This is a test." } }
+    follow_redirect!
+    expect(last_response.status).to eq(200)
+    expect(last_response.body).to include('This is a test')
+  end
 end
