@@ -14,5 +14,3 @@ RSpec.configure do |c|
     DB.transaction(:rollback=>:always, :auto_savepoint=>true){example.run}
   end
 end
-
-SimpleCov.start
