@@ -48,4 +48,14 @@ describe 'The ctrl-v Application' do
     expect(last_response.status).to eq(200)
     expect(last_response.body).to include('This is a test')
   end
+
+  it 'view paste text' do
+    post '/new', { _hp: "", paste: { content: "This is a test." } }
+    paste_url = last_response.location.match(/\/p\/[a-zA-Z0-9]+$/).to_s
+    get "#{paste_url}/text"
+    expect(last_response.status).to eq(200)
+    expect(last_response.body).to include('This is a test')
+    expect(last_response.headers).to include('Content-Type')
+    expect(last_response.headers['Content-Type']).to include('text/plain')
+  end
 end
