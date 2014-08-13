@@ -57,4 +57,15 @@ describe 'The ctrl-v Application' do
     expect(last_response.body).to include('This is a test')
     expect(last_response.headers['Content-Type']).to include('text/plain')
   end
+
+  it 'download paste' do
+    post '/new', { _hp: "", paste: { content: "This is a test." } }
+    paste_url = last_response.location.match(/\/p\/[a-zA-Z0-9]+$/).to_s
+    get "#{paste_url}/download"
+    expect(last_response.status).to eq(200)
+    expect(last_response.body).to include('This is a test')
+    expect(last_response.headers['Content-Type']).to include('application/octet-stream')
+    expect(last_response.headers['Content-Disposition']).to include('attachment; filename=')
+    expect(last_response.headers['Content-Transfer-Encoding']).to include('binary')
+  end
 end
