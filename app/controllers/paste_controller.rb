@@ -44,7 +44,7 @@ class App < Sinatra::Base
     not_found if @paste.nil?
     content_type 'text/plain'
     @paste.increment_view_count
-    @paste.content.to_s
+    @paste.content
   end
 
   get '/p/:id/download' do
@@ -55,7 +55,7 @@ class App < Sinatra::Base
     headers['Content-Disposition'] = "attachment; filename=#{@paste.filename}"
     headers['Content-Transfer-Encoding'] = 'binary'
     @paste.increment_view_count
-    @paste.content.to_s
+    @paste.content
   end
 
   get '/p/:id/clone' do
