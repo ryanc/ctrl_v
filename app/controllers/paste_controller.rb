@@ -33,7 +33,7 @@ class App < Sinatra::Base
   get '/p/:id' do
     cache_control s_max_age: 86_400
     @paste = Paste.first(id_b62: params[:id])
-    halt(404) if @paste.nil?
+    not_found if @paste.nil?
     @paste.increment_view_count
     erb :paste
   end
@@ -41,7 +41,7 @@ class App < Sinatra::Base
   get '/p/:id/text' do
     cache_control s_max_age: 86_400
     @paste = Paste.first(id_b62: params[:id])
-    halt(404) if @paste.nil?
+    not_found if @paste.nil?
     content_type 'text/plain'
     @paste.increment_view_count
     @paste.content.to_s
@@ -50,7 +50,7 @@ class App < Sinatra::Base
   get '/p/:id/download' do
     cache_control s_max_age: 86_400
     @paste = Paste.first(id_b62: params[:id])
-    halt(404) if @paste.nil?
+    not_found if @paste.nil?
     headers['Content-Type'] = 'application/octet-stream'
     headers['Content-Disposition'] = "attachment; filename=#{@paste.filename}"
     headers['Content-Transfer-Encoding'] = 'binary'
@@ -60,13 +60,13 @@ class App < Sinatra::Base
 
   get '/p/:id/clone' do
     @paste = Paste.first(id_b62: params[:id])
-    halt(404) if @paste.nil?
+    not_found if @paste.nil?
     erb :new
   end
 
   get '/p/:id/delete' do
     @paste = Paste.first(id_b62: params[:id])
-    halt(404) if @paste.nil?
+    not_found if @paste.nil?
     halt(403) unless @paste.owner?(current_user)
     @paste.destroy
     flash[:success] = "Paste ##{@paste.id_b62} has been deleted."
