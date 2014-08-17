@@ -91,5 +91,19 @@ describe 'The ctrl-v Application' do
   end
 
   context 'when signed in' do
+    let(:user) do
+      User.create(
+        name: 'Test User',
+        username: 'test',
+        email: 'test@example.com',
+        password: 'password',
+        password_confirmation: 'password',
+      )
+    end
+
+    before do
+      # Simulate an authenticated session.
+      get '/', {}, { 'rack.session' => { user_id: user.id }}
+    end
   end
 end
