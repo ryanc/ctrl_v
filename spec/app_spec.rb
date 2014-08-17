@@ -105,5 +105,15 @@ describe 'The ctrl-v Application' do
       # Simulate an authenticated session.
       get '/', {}, { 'rack.session' => { user_id: user.id }}
     end
+
+    it 'delete paste' do
+      post '/new', { _hp: "", paste: { content: "This is a test." }}
+      paste_url = last_response.location.match(/\/p\/[a-zA-Z0-9]+$/).to_s
+      get "#{paste_url}/delete"
+      expect(last_response.status).to eq(302)
+      expect(last_response.location).to include('/new')
+      follow_redirect!
+      expect(last_response.body).to match(/Paste #[a-zA-Z0-9]+ has been deleted\./)
+    end
   end
 end
