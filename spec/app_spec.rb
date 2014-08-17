@@ -115,5 +115,13 @@ describe 'The ctrl-v Application' do
       follow_redirect!
       expect(last_response.body).to match(/Paste #[a-zA-Z0-9]+ has been deleted\./)
     end
+
+    it 'show my pastes' do
+      post '/new', { _hp: "", paste: { content: "This is a test." }}
+      paste_url = last_response.location.match(/\/p\/[a-zA-Z0-9]+$/).to_s
+      get '/mine'
+      expect(last_response.status).to eq(200)
+      expect(last_response.body).to include(paste_url)
+    end
   end
 end
