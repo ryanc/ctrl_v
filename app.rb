@@ -37,7 +37,7 @@ class App < Sinatra::Base
   private
 
   def current_user
-    @current_user ||= User[session[:uid]]
+    @current_user ||= User[session[:user_id]]
   end
 
   def use_cdn?

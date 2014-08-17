@@ -126,13 +126,13 @@ class App < Sinatra::Base
   end
 
   def login!(user)
-    session[:uid] = user.id
+    session[:user_id] = user.id
     user.last_seen_at = Time.now
     user.save
   end
 
   def logout!
-    session[:uid] = nil if session[:uid]
+    session[:user_id] = nil if session[:user_id]
   end
 
   def activation_email(user)
