@@ -95,6 +95,14 @@ describe 'The ctrl-v Application' do
       get "#{paste_url}/delete"
       expect(last_response.status).to eq(403)
     end
+
+    it 'refuses to show my pastes' do
+      post '/new', { _hp: "", paste: { content: "This is a test." }}
+      paste_url = last_response.location.match(/\/p\/[a-zA-Z0-9]+$/).to_s
+      get '/mine'
+      expect(last_response.status).to eq(302)
+      expect(last_response.location).to include('/login')
+    end
   end
 
   context 'when signed in' do
