@@ -15,7 +15,7 @@ class App < Sinatra::Base
   configure :development do
     require 'better_errors'
     use BetterErrors::Middleware
-    BetterErrors.application_root = File.expand_path('..', __FILE__)
+    BetterErrors.application_root = __dir__
   end
 
   # enable sessions
