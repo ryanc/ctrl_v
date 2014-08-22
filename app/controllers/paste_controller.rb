@@ -24,7 +24,7 @@ class App < Sinatra::Base
     @paste.ip_addr = request.ip
     if @paste.valid?
       @paste.save
-      redirect to "/p/#{@paste.id_b62}"
+      redirect paste_url(@paste.id_b62)
     else
       erb :new
     end
@@ -78,7 +78,7 @@ class App < Sinatra::Base
     if paste.nil?
       redirect to '/new'
     else
-      redirect to "/p/#{paste.id_b62}"
+      redirect paste_url(paste.id_b62)
     end
   end
 

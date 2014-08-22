@@ -32,6 +32,11 @@ class App < Sinatra::Base
     def e(text)
       Rack::Utils.escape_html(text)
     end
+
+    def paste_url(id)
+      id.gsub!(/[^a-zA-Z0-9]/, '')
+      "/p/#{id}"
+    end
   end
 
   private
