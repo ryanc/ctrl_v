@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+PASTE_URL_REGEX = /\/p\/[a-zA-Z0-9]+$/
+
 describe 'The ctrl-v Application' do
   include Rack::Test::Methods
 
@@ -24,7 +26,7 @@ describe 'The ctrl-v Application' do
       post '/new', { _hp: "", paste: { content: "This is a test." } }
       expect(last_response.status).to eq(302)
       expect(last_response.location).not_to be_nil
-      expect(last_response.location).to match(/\/p\/[a-zA-Z0-9]+$/)
+      expect(last_response.location).to match(PASTE_URL_REGEX)
     end
 
     it 'post validation failure' do
@@ -52,7 +54,7 @@ describe 'The ctrl-v Application' do
 
     it 'view paste text' do
       post '/new', { _hp: "", paste: { content: "This is a test." } }
-      paste_url = last_response.location.match(/\/p\/[a-zA-Z0-9]+$/).to_s
+      paste_url = last_response.location.match(PASTE_URL_REGEX).to_s
       get "#{paste_url}/text"
       expect(last_response.status).to eq(200)
       expect(last_response.body).to include('This is a test')
@@ -61,7 +63,7 @@ describe 'The ctrl-v Application' do
 
     it 'download paste' do
       post '/new', { _hp: "", paste: { content: "This is a test." } }
-      paste_url = last_response.location.match(/\/p\/[a-zA-Z0-9]+$/).to_s
+      paste_url = last_response.location.match(PASTE_URL_REGEX).to_s
       get "#{paste_url}/download"
       expect(last_response.status).to eq(200)
       expect(last_response.body).to include('This is a test')
@@ -72,7 +74,7 @@ describe 'The ctrl-v Application' do
 
     it 'clone paste' do
       post '/new', { _hp: "", paste: { content: "This is a test." } }
-      paste_url = last_response.location.match(/\/p\/[a-zA-Z0-9]+$/).to_s
+      paste_url = last_response.location.match(PASTE_URL_REGEX).to_s
       get "#{paste_url}/clone"
       expect(last_response.status).to eq(200)
       expect(last_response.body).to match(/<textarea.+>This is a test\.<\/textarea>/m)
@@ -82,7 +84,7 @@ describe 'The ctrl-v Application' do
       get '/latest'
       expect(last_response.location).to include('/new')
       post '/new', { _hp: "", paste: { content: "This is a test." } }
-      paste_url = last_response.location.match(/\/p\/[a-zA-Z0-9]+$/).to_s
+      paste_url = last_response.location.match(PASTE_URL_REGEX).to_s
       get '/latest'
       follow_redirect!
       expect(last_response.status).to eq(200)
@@ -91,14 +93,14 @@ describe 'The ctrl-v Application' do
 
     it 'refuses to delete paste' do
       post '/new', { _hp: "", paste: { content: "This is a test." }}
-      paste_url = last_response.location.match(/\/p\/[a-zA-Z0-9]+$/).to_s
+      paste_url = last_response.location.match(PASTE_URL_REGEX).to_s
       get "#{paste_url}/delete"
       expect(last_response.status).to eq(403)
     end
 
     it 'refuses to show my pastes' do
       post '/new', { _hp: "", paste: { content: "This is a test." }}
-      paste_url = last_response.location.match(/\/p\/[a-zA-Z0-9]+$/).to_s
+      paste_url = last_response.location.match(PASTE_URL_REGEX).to_s
       get '/mine'
       expect(last_response.status).to eq(302)
       expect(last_response.location).to include('/login')
@@ -123,7 +125,7 @@ describe 'The ctrl-v Application' do
 
     it 'delete paste' do
       post '/new', { _hp: "", paste: { content: "This is a test." }}
-      paste_url = last_response.location.match(/\/p\/[a-zA-Z0-9]+$/).to_s
+      paste_url = last_response.location.match(PASTE_URL_REGEX).to_s
       get "#{paste_url}/delete"
       expect(last_response.status).to eq(302)
       expect(last_response.location).to include('/new')
@@ -133,7 +135,7 @@ describe 'The ctrl-v Application' do
 
     it 'show my pastes' do
       post '/new', { _hp: "", paste: { content: "This is a test." }}
-      paste_url = last_response.location.match(/\/p\/[a-zA-Z0-9]+$/).to_s
+      paste_url = last_response.location.match(PASTE_URL_REGEX).to_s
       get '/mine'
       expect(last_response.status).to eq(200)
       expect(last_response.body).to include(paste_url)
