@@ -3,7 +3,7 @@ shared_path = File.expand_path('../../../shared', File.dirname(__FILE__))
 
 working_directory app_path
 
-worker_processes (ENV['UNICORN_WORKERS'] || 2).to_i
+worker_processes (ENV['UNICORN_WORKERS'] || 3).to_i
 
 listen "#{shared_path}/tmp/sockets/unicorn.sock"
 listen 8080
