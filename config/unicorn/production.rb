@@ -1,5 +1,5 @@
-app_path = File.expand_path('../../', __dir__)
-shared_path = File.expand_path('../../../shared', __dir__)
+app_path = File.expand_path('../../', File.dirname(__FILE__))
+shared_path = File.expand_path('../../../shared', File.dirname(__FILE__))
 
 working_directory app_path
 
