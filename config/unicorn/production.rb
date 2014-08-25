@@ -1,4 +1,4 @@
-app_path = File.expand_path(File.expand_path(File.dirname(__FILE__)) + '/../')
+app_path = File.expand_path(File.expand_path(File.dirname(__FILE__)) + '/../../')
 working_directory app_path
 
 worker_processes (ENV['UNICORN_WORKERS'] || 2).to_i
