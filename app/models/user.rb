@@ -30,11 +30,6 @@ class User < Sequel::Model(:user)
     password_hash == password
   end
 
-  def email=(email)
-    return nil if email.strip.empty?
-    super(email)
-  end
-
   def name=(name)
     return nil if name.strip.empty?
     super(name)
