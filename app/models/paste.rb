@@ -39,6 +39,7 @@ class Paste < Sequel::Model(:paste)
   end
 
   def increment_view_count
-    update(:view_count => Sequel.+(:view_count, 1))
+    self.view_count += 1
+    save
   end
 end
