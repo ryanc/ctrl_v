@@ -30,11 +30,6 @@ class User < Sequel::Model(:user)
     password_hash == password
   end
 
-  def name=(name)
-    return nil if name.strip.empty?
-    super(name)
-  end
-
   def validate
     super
     validates_presence :username, message: 'The username cannot be blank.'
