@@ -12,11 +12,13 @@ DB = Sequel.connect(ENV['DATABASE_URL'] || YAML.load_file('config/database.yml')
 # Main application
 class App < Sinatra::Base
 
+  # :nocov:
   configure :development do
     require 'better_errors'
     use BetterErrors::Middleware
     BetterErrors.application_root = __dir__
   end
+  # :nocov:
 
   # enable sessions
   use Rack::Session::Cookie, secret: File.read('config/secret.key')
