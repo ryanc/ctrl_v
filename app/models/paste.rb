@@ -25,10 +25,6 @@ class Paste < Sequel::Model(:paste)
     super(false) if [nil, false].include?(h)
   end
 
-  def highlight?
-    self.highlight
-  end
-
   def after_create
     update(:id_b62 => Radix62.encode62(id))
     super
