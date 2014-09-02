@@ -64,5 +64,4 @@ class App < Sinatra::Base
   end
 end
 
-require 'app/controllers/user_controller'
-require 'app/controllers/paste_controller'
+Dir['app/controllers/*_controller.rb'].each { |file| require file }
