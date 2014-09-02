@@ -6,10 +6,6 @@ require 'rake'
 require 'yaml'
 require 'sequel'
 
-require 'rspec/core/rake_task'
-
-RSpec::Core::RakeTask.new(:spec)
-
 env = ENV['RACK_ENV'] || 'development'
 DB = Sequel.connect(ENV['DATABASE_URL'] || YAML.load_file('config/database.yml')[env])
 
@@ -43,5 +39,3 @@ namespace :db do
     end
   end
 end
-
-task :default => :spec
