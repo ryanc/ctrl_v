@@ -120,6 +120,13 @@ describe 'The ctrl-v Application' do
       follow_redirect!
       expect(last_response.body).to include('The username or password is incorrect.')
     end
+
+    it 'should send forgotten password email' do
+      expect(Pony).to receive(:mail)
+      post '/user/forgot_password', { email: @user.email }
+      @user.refresh
+      expect(@user.password_reset_token).not_to be_nil
+    end
   end
 
   context 'when authenticated' do
