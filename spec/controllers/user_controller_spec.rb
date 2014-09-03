@@ -32,6 +32,7 @@ describe 'The ctrl-v Application' do
         password_confirmation: 'password',
       }
       expect(User.find(username: 'test')).to be_nil
+      expect(Pony).to receive(:mail)
       post '/register', user: params
       expect(User.find(username: 'test')).not_to be_nil
     end
