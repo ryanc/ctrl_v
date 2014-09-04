@@ -55,6 +55,7 @@ class App < Sinatra::Base
     current_user != nil
   end
 
+  # :nocov:
   def base_url
     unless [443, 80].include? @request.port
       "#{@request.scheme}://#{@request.host}:#{@request.port}"
@@ -62,6 +63,7 @@ class App < Sinatra::Base
       "#{@request.scheme}://#{@request.host}"
     end
   end
+  # :nocov:
 end
 
 Dir['app/controllers/*_controller.rb'].each { |file| require file }
