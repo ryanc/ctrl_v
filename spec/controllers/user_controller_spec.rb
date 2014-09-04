@@ -127,6 +127,41 @@ describe 'The ctrl-v Application' do
       @user.refresh
       expect(@user.password_reset_token).not_to be_nil
     end
+
+    it 'should validate password reset token' do
+      @user.generate_password_reset_token
+      @user.save
+      get '/user/validate_password_reset', token: @user.password_reset_token
+      expect(last_response.location).to include('/user/reset_password')
+      @user.refresh
+      expect(@user.password_reset_token).to be_nil
+      expect(last_request.env['rack.session']['reset_uid']).to eq(@user.id)
+    end
+
+    it 'should reject an invalid password reset token' do
+      @user.generate_password_reset_token
+      @user.save
+      get '/user/validate_password_reset', token: '0123456789'
+      expect(last_response.location).to include('/login')
+      expect(@user.password_reset_token).not_to be_nil
+      expect(last_request.env['rack.session']['reset_uid']).to be_nil
+    end
+
+    it 'should render the password reset form if token is valid' do
+      get '/user/reset_password', {}, { 'rack.session' => { reset: true, reset_uid: @user.id } }
+      expect(last_response.body).to include('<form action="/user/reset_password"')
+    end
+
+    it 'should not render the password reset form if token is invalid' do
+      get '/user/reset_password'
+      expect(last_response.location).to include('/login')
+    end
+
+    it 'should reset the password' do
+      post '/user/reset_password', { password: 'password', password_confirmation: 'password'}, { 'rack.session' => { reset: true, reset_uid: @user.id } }
+      follow_redirect!
+      expect(last_response.body).to include('A new password has been set.')
+    end
   end
 
   context 'when authenticated' do
