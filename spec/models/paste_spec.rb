@@ -75,6 +75,58 @@ describe Paste do
     @paste.save
     expect(@paste.updated_at).to be_a(Time)
   end
+
+  it 'should expire if is a one_time paste' do
+    expect(@paste.expired?).to be false
+    @paste.one_time = true
+    @paste.increment_view_count
+    @paste.increment_view_count
+    expect(@paste.expired?).to be true
+  end
+
+  it 'should not expire if is not a one_time paste' do
+    expect(@paste.expired?).to be false
+    @paste.increment_view_count
+    expect(@paste.expired?).to be false
+  end
+
+  it 'should expire if an expiration date is set' do
+    expect(@paste.expired?).to be false
+    @paste.expires_at = Time.now - 60
+    expect(@paste.expired?).to be true
+  end
+
+  it 'should validate the expires value' do
+    @paste.expires = -1
+    expect(@paste).to be_valid
+    @paste.expires = 0
+    expect(@paste).to be_valid
+    @paste.expires = 3600
+    expect(@paste).to be_valid
+    @paste.expires = 86400
+    expect(@paste).to be_valid
+    @paste.expires = 604800
+    expect(@paste).to be_valid
+    @paste.expires = 2592000
+    expect(@paste).to be_valid
+    @paste.expires = 1234
+    expect(@paste).not_to be_valid
+  end
+
+  it 'should set the expiration date' do
+    @paste.expires = -1
+    expect(@paste.one_time?).to be true
+    @paste.expires = 0
+    expect(@paste.expires_at).to be nil
+    @paste.expires = 3600
+    expect(@paste.expires_at).to be_a(Time)
+    @paste.expires = 2592000
+    expect(@paste.expires_at).to be_a(Time)
+    @paste.expires = 2592001
+    expect(@paste.expires_at).to be_nil
+    @paste.expires = 'string'
+    expect(@paste.expires_at).to be_nil
+  end
 end
 
 describe Paste do
