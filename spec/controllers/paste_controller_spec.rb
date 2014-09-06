@@ -105,6 +105,45 @@ describe 'The ctrl-v Application' do
       expect(last_response.status).to eq(302)
       expect(last_response.location).to include('/login')
     end
+
+    it 'returns not found when the paste is expired' do
+      paste = Paste.create(
+        content: "This is a test.",
+        ip_addr: '127.0.0.1',
+        expires_at: Time.now - 3600,
+      )
+      get "/p/#{paste.id_b62}"
+      expect(paste.expired?).to be true
+      expect(last_response.status).to eq(404)
+      ['text', 'download', 'clone', 'delete'].each do |action|
+        get "/p/#{paste.id_b62}/#{action}"
+        expect(last_response.status).to eq(404)
+      end
+    end
+
+    it 'returns not found when the one time paste is expired' do
+      paste = Paste.create(
+        content: "This is a test.",
+        ip_addr: '127.0.0.1',
+        one_time: true,
+      )
+      get "/p/#{paste.id_b62}"
+      paste.refresh
+      expect(paste.expired?).to be false
+      expect(last_response).to be_ok
+      get "/p/#{paste.id_b62}"
+      paste.refresh
+      expect(paste.expired?).to be true
+      expect(last_response).to be_ok
+      get "/p/#{paste.id_b62}"
+      paste.refresh
+      expect(paste.expired?).to be true
+      expect(last_response.status).to eq(404)
+      ['text', 'download', 'clone', 'delete'].each do |action|
+        get "/p/#{paste.id_b62}/#{action}"
+        expect(last_response.status).to eq(404)
+      end
+    end
   end
 
   context 'when signed in' do
