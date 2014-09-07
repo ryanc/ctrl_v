@@ -41,6 +41,11 @@ class App < Sinatra::Base
     end
   end
 
+  not_found do
+    @error = 'Paste not found or no longer available.'
+    erb :error
+  end
+
   private
 
   def current_user
