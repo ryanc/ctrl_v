@@ -63,4 +63,8 @@ class Paste < Sequel::Model(:paste)
     end
     @expires = expires
   end
+
+  def self.remove_expired
+    where(one_time: true).where{view_count >= 2}.or{expires_at <= Time.now}.delete
+  end
 end

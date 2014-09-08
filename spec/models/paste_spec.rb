@@ -133,4 +133,37 @@ describe Paste do
   subject { Paste }
 
   it { is_expected.to respond_to(:recent) }
+
+  it 'should clean up expired pastes.' do
+    expect(Paste.first).to be_nil
+    # Create a paste that never expires.
+    paste = Paste.create(
+      filename: 'test.txt',
+      highlighted: true,
+      ip_addr: '127.0.0.1',
+      content: 'Testing ... 1 ... 2 ... 3',
+    )
+    expect(Paste.first).not_to be_nil
+    # Create a paste that expires on next view.
+    Paste.create(
+      filename: 'test.txt',
+      highlighted: true,
+      ip_addr: '127.0.0.1',
+      content: 'Testing ... 1 ... 2 ... 3',
+      one_time: true,
+      view_count: 2,
+    )
+    # Create a paste that has already expired (time).
+    Paste.create(
+      filename: 'test.txt',
+      highlighted: true,
+      ip_addr: '127.0.0.1',
+      content: 'Testing ... 1 ... 2 ... 3',
+      expires_at: Time.now - 3600,
+    )
+    expect(Paste.count).to eq(3)
+    Paste.remove_expired
+    expect(Paste.count).to eq(1)
+    expect(Paste.first.id).to eq(paste.id)
+  end
 end
