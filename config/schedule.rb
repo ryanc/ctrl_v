@@ -18,6 +18,8 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
+set :environment_variable, "RACK_ENV"
+
 env :PATH, ENV['PATH']
 
 every 1.hour do
