@@ -52,10 +52,6 @@ class App < Sinatra::Base
     @current_user ||= User[session[:user_id]]
   end
 
-  def use_cdn?
-    true
-  end
-
   def logged_in?
     current_user != nil
   end
