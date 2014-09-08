@@ -9,6 +9,8 @@ require 'sequel'
 env = ENV['RACK_ENV'] || 'development'
 DB = Sequel.connect(ENV['DATABASE_URL'] || YAML.load_file('config/database.yml')[env])
 
+require 'app/models/paste'
+
 desc 'Generate the session secret.'
 task :secret do
   puts `openssl rand 64`.unpack('H*')
@@ -37,5 +39,11 @@ namespace :db do
       rasie 'VERSION is required' unless version
       Sequel::Migrator.run DB, 'db/migrations', target: version
     end
+  end
+end
+
+namespace :cron do
+  task :remove_expired do
+    Paste.remove_expired
   end
 end
