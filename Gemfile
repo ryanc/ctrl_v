@@ -19,6 +19,7 @@ gem 'bcrypt'
 gem 'pony'
 
 gem 'rake'
+gem 'whenever'
 
 group :deployment do
   gem 'unicorn'
