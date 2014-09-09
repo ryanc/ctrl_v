@@ -20,7 +20,7 @@ class Paste < Sequel::Model(:paste)
 
   dataset_module do
     def not_expired
-      where(one_time: false).where{Sequel.expr(expires_at: nil) | (expires_at > Time.now)}
+      where(one_time: false).or{expires_at > Time.now}
     end
 
     def recent
