@@ -7,6 +7,7 @@ require 'rspec'
 require 'rack/test'
 
 require 'app'
+require 'api'
 
 # Global around filters should work
 RSpec.configure do |c|
