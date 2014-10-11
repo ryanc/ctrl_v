@@ -12,9 +12,9 @@ class Api < Sinatra::Base
   get '/paste/:id' do
     content_type 'text/plain'
     @paste = Paste.first(id_b62: params[:id])
-    halt 404, 'Not Found' if paste.nil?
+    halt 404, 'Not Found' if @paste.nil?
     @paste.increment_view_count
-    paste.content.to_s
+    @paste.content
   end
 
   post '/paste' do
@@ -23,7 +23,7 @@ class Api < Sinatra::Base
       filename: params[:filename],
       highlighted: params[:highlighted] || true,
       content: params[:content],
-      user_id: Models::User.find(username: username).id,
+      user_id: User.find(username: username).id,
       ip_addr: request.ip
     )
     redirect to "/p/#{paste.id_b62}"
@@ -31,8 +31,8 @@ class Api < Sinatra::Base
 
   delete '/paste/:id' do
     @paste = Paste.first(id_b62: params[:id])
-    halt 404, 'Not Found' if paste.nil?
-    paste.destroy
+    halt 404, 'Not Found' if @paste.nil?
+    @paste.destroy
     204
   end
 end
