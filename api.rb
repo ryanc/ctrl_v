@@ -23,13 +23,11 @@ class Api < Sinatra::Base
   end
 
   post '/paste' do
-    paste = Paste.create(
-      filename: params[:filename],
-      highlighted: params[:highlighted] || true,
-      content: params[:content],
-      user_id: @user.id,
-      ip_addr: request.ip
-    )
+    paste = Paste.new
+    paste.ip_addr = request.ip
+    paste.user = @user
+    paste.set_fields(params, paste_params)
+    paste.save
     redirect to "/p/#{paste.id_b62}"
   end
 
@@ -39,5 +37,11 @@ class Api < Sinatra::Base
     halt 403 unless @paste.owner?(@user)
     @paste.destroy
     204
+  end
+
+  private
+
+  def paste_params
+    [:filename, :highlighted, :content]
   end
 end
