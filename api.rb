@@ -27,8 +27,12 @@ class Api < Sinatra::Base
     paste.ip_addr = request.ip
     paste.user = @user
     paste.set_fields(params, paste_params)
-    paste.save
-    redirect to "/p/#{paste.id_b62}"
+    if paste.valid?
+      paste.save
+      redirect to "/p/#{paste.id_b62}"
+    else
+      400
+    end
   end
 
   delete '/paste/:id' do

@@ -72,5 +72,11 @@ describe 'The ctrl-v Api' do
       delete "/paste/#{paste.id_b62}"
       expect(last_response.status).to eq(403)
     end
+
+    it 'should not allow an invalid paste' do
+      authorize user.username, user.password
+      post '/paste', { content: "" }
+      expect(last_response.status).to eq(400)
+    end
   end
 end
