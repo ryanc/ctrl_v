@@ -30,8 +30,10 @@ class Api < Sinatra::Base
   end
 
   delete '/paste/:id' do
+    username = request.env['REMOTE_USER']
     @paste = Paste.first(id_b62: params[:id])
     halt 404, 'Not Found' if @paste.nil?
+    halt 403 unless @paste.owner?(User.find(username: username))
     @paste.destroy
     204
   end

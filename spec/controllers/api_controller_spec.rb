@@ -61,5 +61,16 @@ describe 'The ctrl-v Api' do
       get "/paste/#{pid}"
       expect(last_response.status).to eq(404)
     end
+
+    it 'should not delete a paste that is owned by another user' do
+      paste = Paste.create(
+        content: "This is a test.",
+        ip_addr: '127.0.0.1',
+        one_time: true,
+      )
+      authorize user.username, user.password
+      delete "/paste/#{paste.id_b62}"
+      expect(last_response.status).to eq(403)
+    end
   end
 end
