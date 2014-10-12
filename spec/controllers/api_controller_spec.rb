@@ -1,7 +1,5 @@
 require 'spec_helper'
 
-PASTE_URL_REGEX = /\/p\/[a-zA-Z0-9]+$/
-
 describe 'The ctrl-v Api' do
   include Rack::Test::Methods
 
