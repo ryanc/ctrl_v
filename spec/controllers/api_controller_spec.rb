@@ -20,6 +20,12 @@ describe 'The ctrl-v Api' do
       delete '/paste/1'
       expect(last_response.status).to eq(401)
     end
+
+    it 'should reject invalid credentials' do
+      authorize 'wrong', 'credentials'
+      get '/paste/1'
+      expect(last_response.status).to eq(401)
+    end
   end
 
   context 'when authenticated' do
