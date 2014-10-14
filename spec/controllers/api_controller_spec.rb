@@ -81,6 +81,7 @@ describe 'The ctrl-v Api' do
       authorize user.username, user.password
       post '/paste', { content: "" }
       expect(last_response.status).to eq(400)
+      expect(JSON.parse(last_response.body)).to include('error')
     end
   end
 end

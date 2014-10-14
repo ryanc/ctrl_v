@@ -31,7 +31,7 @@ class Api < Sinatra::Base
       paste.save
       redirect to "/p/#{paste.id_b62}"
     else
-      400
+      return json_error(paste.errors.full_messages, 400)
     end
   end
 
@@ -47,5 +47,15 @@ class Api < Sinatra::Base
 
   def paste_params
     [:filename, :highlighted, :content]
+  end
+
+  def json_response(resp, status_code = 200)
+    status status_code
+    content_type :json
+    resp.to_json
+  end
+
+  def json_error(message, status_code)
+    json_response({ error: message }, status_code)
   end
 end
