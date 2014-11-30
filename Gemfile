@@ -19,10 +19,7 @@ gem 'bcrypt'
 gem 'pony'
 
 gem 'rake'
-
-group :production do
-  gem 'whenever'
-end
+gem 'whenever'
 
 group :deployment do
   gem 'unicorn'
