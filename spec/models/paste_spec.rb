@@ -101,13 +101,13 @@ describe Paste do
     expect(@paste).to be_valid
     @paste.expires = 0
     expect(@paste).to be_valid
-    @paste.expires = 3600
+    @paste.expires = 3_600
     expect(@paste).to be_valid
-    @paste.expires = 86400
+    @paste.expires = 86_400
     expect(@paste).to be_valid
-    @paste.expires = 604800
+    @paste.expires = 604_800
     expect(@paste).to be_valid
-    @paste.expires = 2592000
+    @paste.expires = 2_592_000
     expect(@paste).to be_valid
     @paste.expires = 1234
     expect(@paste).not_to be_valid
@@ -118,11 +118,11 @@ describe Paste do
     expect(@paste.one_time?).to be true
     @paste.expires = 0
     expect(@paste.expires_at).to be nil
-    @paste.expires = 3600
+    @paste.expires = 3_600
     expect(@paste.expires_at).to be_a(Time)
-    @paste.expires = 2592000
+    @paste.expires = 2_592_000
     expect(@paste.expires_at).to be_a(Time)
-    @paste.expires = 2592001
+    @paste.expires = 2_592_001
     expect(@paste.expires_at).to be_nil
     @paste.expires = 'string'
     expect(@paste.expires_at).to be_nil
