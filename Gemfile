@@ -43,4 +43,5 @@ group :test do
   gem 'rack-test'
   gem 'simplecov'
   gem 'rspec'
+  gem 'capybara'
 end
