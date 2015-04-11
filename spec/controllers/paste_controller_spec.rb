@@ -89,6 +89,19 @@ describe 'The ctrl-v Application' do
       expect(last_response.body).to include('This is a test')
     end
 
+    it 'latest paste should not be expired' do
+      paste = Paste.create(
+        content: "This is a test.",
+        ip_addr: '127.0.0.1',
+        expires_at: Time.now - 3600,
+      )
+      get '/latest'
+      follow_redirect!
+      expect(last_response.status).to eq(200)
+      expect(last_response.body).to_not include('Paste not found or no longer available.')
+      expect(last_response.location).to_not eq("/p/#{paste.id_b62}")
+    end
+
     it 'refuses to delete paste' do
       post '/new', { _hp: "", paste: { content: "This is a test." }}
       paste_url = last_response.location.match(PASTE_URL_REGEX).to_s
