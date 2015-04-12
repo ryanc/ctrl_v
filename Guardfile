@@ -18,5 +18,6 @@ guard :rspec, cmd: 'bundle exec rspec' do
   watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { |m| "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb" }
   watch(%r{^app/models/(.+)\.rb$})  { |m| "spec/models/#{m[1]}_spec.rb" }
   watch(%r{^views/(.*)(\.erb)$})          { "spec/controllers" }
+  watch(%r{^(.*)\.rb$}) { "spec/acceptance" }
 end
 
