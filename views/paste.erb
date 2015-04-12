@@ -1,19 +1,24 @@
-<%= erb :flash %>
-<div>
-  <div class="btn-group pull-right">
-    <a class="btn btn-default" role="button" href="/p/<%= @paste.id_b62 %>/text">Raw</a>
-    <a class="btn btn-default" role="button" href="/p/<%= @paste.id_b62 %>/download">Download</a>
-    <a class="btn btn-default" role="button" href="/p/<%= @paste.id_b62 %>/clone">Clone</a>
-    <% if @paste.owner?(current_user) %>
-    <a class="btn btn-danger" role="button" href="/p/<%= @paste.id_b62 %>/delete">Delete</a>
-    <% end %>
-  </div>
+<div class="paste-meta">
+  Created at <%= @paste.created_at.asctime %>
 </div>
-<div class="paste">
-  <% if @paste.highlighted? %>
-  <pre><code><%= e @paste.content %></code></pre>
-  <% else %>
-  <pre><%= e @paste.content %></pre>
-  <% end %>
-  <!-- Created at: <%= @paste.created_at %> -->
+<div class="container-fluid">
+  <%= erb :flash %>
+  <div>
+    <div class="btn-group pull-right">
+      <a class="btn btn-default" role="button" href="/p/<%= @paste.id_b62 %>/text">Raw</a>
+      <a class="btn btn-default" role="button" href="/p/<%= @paste.id_b62 %>/download">Download</a>
+      <a class="btn btn-default" role="button" href="/p/<%= @paste.id_b62 %>/clone">Clone</a>
+      <% if @paste.owner?(current_user) %>
+      <a class="btn btn-danger" role="button" href="/p/<%= @paste.id_b62 %>/delete">Delete</a>
+      <% end %>
+    </div>
+  </div>
+  <div class="paste">
+    <% if @paste.highlighted? %>
+    <pre><code><%= e @paste.content %></code></pre>
+    <% else %>
+    <pre><%= e @paste.content %></pre>
+    <% end %>
+    <!-- Created at: <%= @paste.created_at %> -->
+  </div>
 </div>
