@@ -1,7 +1,7 @@
-app_path = File.expand_path('../../', File.dirname(__FILE__))
 shared_path = File.expand_path('../../../shared', File.dirname(__FILE__))
+current_path = File.expand_path('../../../current', File.dirname(__FILE__))
 
-working_directory app_path
+working_directory current_path
 
 worker_processes (ENV['UNICORN_WORKERS'] || 3).to_i
 
@@ -10,8 +10,8 @@ listen 8080
 
 pid "#{shared_path}/tmp/pids/unicorn.pid"
 
-stderr_path "#{app_path}/log/unicorn.stderr.log"
-stdout_path "#{app_path}/log/unicorn.stdout.log"
+stderr_path "#{current_path}/log/unicorn.stderr.log"
+stdout_path "#{current_path}/log/unicorn.stdout.log"
 
 preload_app true
 
