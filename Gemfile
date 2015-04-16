@@ -20,6 +20,7 @@ gem 'pony'
 
 gem 'rake'
 gem 'whenever'
+gem 'actionview'
 
 group :deployment do
   gem 'unicorn'

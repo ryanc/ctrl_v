@@ -5,6 +5,7 @@ require 'rack-flash'
 require 'sequel'
 require 'yaml'
 require 'sinatra/config_file'
+require 'action_view'
 
 env = ENV['RACK_ENV'] || 'production'
 DB = Sequel.connect(ENV['DATABASE_URL'] || YAML.load_file('config/database.yml')[env])
@@ -39,6 +40,8 @@ class App < Sinatra::Base
       id.gsub!(/[^a-zA-Z0-9]/, '')
       "/p/#{id}"
     end
+
+    include ActionView::Helpers::DateHelper
   end
 
   not_found do

@@ -1,5 +1,11 @@
 <div class="paste-meta">
-  Created at <%= @paste.created_at.asctime %>
+  <div class="paste-created-at">
+    <span class="glyphicon glyphicon-file"></span>
+    Created
+    <time datetime="<%= @paste.created_at.utc.strftime('%FT%TZ') %>" title="<%= @paste.created_at %>">
+      <%= distance_of_time_in_words(@paste.created_at, Time.now) %> ago
+    </time>
+  </div>
 </div>
 <div class="container-fluid">
   <%= erb :flash %>
