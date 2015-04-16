@@ -38,6 +38,11 @@ div.paste-meta {
   display: inline-block;
 }
 
+.paste-expires-at {
+  display: inline-block;
+  margin-left: 1em;
+}
+
 div.flash {
   margin-top: 1em;
 }

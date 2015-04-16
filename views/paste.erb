@@ -6,6 +6,15 @@
       <%= distance_of_time_in_words(@paste.created_at, Time.now) %> ago
     </time>
   </div>
+  <% if @paste.expires_at %>
+  <div class="paste-expires-at">
+    <span class="glyphicon glyphicon-trash"></span>
+    Expires in
+    <time datetime="<%= @paste.expires_at.utc.strftime('%FT%TZ') %>" title="<%= @paste.created_at %>">
+      <%= distance_of_time_in_words(@paste.expires_at, Time.now) %>
+    </time>
+  </div>
+  <% end %>
 </div>
 <div class="container-fluid">
   <%= erb :flash %>
