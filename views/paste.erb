@@ -10,7 +10,7 @@
   <div class="paste-expires-at">
     <span class="glyphicon glyphicon-trash"></span>
     Expires in
-    <time datetime="<%= @paste.expires_at.utc.strftime('%FT%TZ') %>" title="<%= @paste.created_at %>">
+    <time datetime="<%= @paste.expires_at.utc.strftime('%FT%TZ') %>" title="<%= @paste.expires_at %>">
       <%= distance_of_time_in_words(@paste.expires_at, Time.now) %>
     </time>
   </div>
