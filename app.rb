@@ -5,6 +5,7 @@ require 'rack-flash'
 require 'sequel'
 require 'yaml'
 require 'sinatra/config_file'
+require 'active_support/all'
 require 'action_view'
 
 env = ENV['RACK_ENV'] || 'production'
