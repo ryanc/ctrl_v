@@ -7,6 +7,33 @@ describe 'The ctrl-v Application' do
     App
   end
 
+  it 'paste has Cache-Control header' do
+    post '/new', { _hp: "", paste: { content: "This is a test." } }
+    paste_url = last_response.location.match(PASTE_URL_REGEX).to_s
+    get "#{paste_url}"
+    expect(last_response.status).to eq(200)
+    expect(last_response.headers).to include('Cache-Control')
+    expect(last_response.headers['Cache-Control']).to match(/^max-age/)
+  end
+
+  it 'plain text paste has Cache-Control header' do
+    post '/new', { _hp: "", paste: { content: "This is a test." } }
+    paste_url = last_response.location.match(PASTE_URL_REGEX).to_s
+    get "#{paste_url}/text"
+    expect(last_response.status).to eq(200)
+    expect(last_response.headers).to include('Cache-Control')
+    expect(last_response.headers['Cache-Control']).to match(/^max-age/)
+  end
+
+  it 'paste download has Cache-Control header' do
+    post '/new', { _hp: "", paste: { content: "This is a test." } }
+    paste_url = last_response.location.match(PASTE_URL_REGEX).to_s
+    get "#{paste_url}/download"
+    expect(last_response.status).to eq(200)
+    expect(last_response.headers).to include('Cache-Control')
+    expect(last_response.headers['Cache-Control']).to match(/^max-age/)
+  end
+
   context 'when not signed in' do
     it 'redirects to new' do
       get '/'

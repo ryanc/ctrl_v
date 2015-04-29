@@ -31,7 +31,7 @@ class App < Sinatra::Base
   end
 
   get '/p/:id' do
-    cache_control s_max_age: 86_400
+    cache_control max_age: 86_400
     @paste = Paste.first(id_b62: params[:id])
     not_found if @paste.nil? || @paste.expired?
     @paste.increment_view_count
@@ -39,7 +39,7 @@ class App < Sinatra::Base
   end
 
   get '/p/:id/text' do
-    cache_control s_max_age: 86_400
+    cache_control max_age: 86_400
     @paste = Paste.first(id_b62: params[:id])
     not_found if @paste.nil? || @paste.expired?
     content_type 'text/plain'
@@ -48,7 +48,7 @@ class App < Sinatra::Base
   end
 
   get '/p/:id/download' do
-    cache_control s_max_age: 86_400
+    cache_control max_age: 86_400
     @paste = Paste.first(id_b62: params[:id])
     not_found if @paste.nil? || @paste.expired?
     headers['Content-Type'] = 'application/octet-stream'
