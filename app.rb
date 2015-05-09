@@ -7,6 +7,7 @@ require 'yaml'
 require 'sinatra/config_file'
 require 'active_support/all'
 require 'action_view'
+require 'helpers'
 
 env = ENV['RACK_ENV'] || 'production'
 DB = Sequel.connect(ENV['DATABASE_URL'] || YAML.load_file('config/database.yml')[env])
@@ -43,6 +44,7 @@ class App < Sinatra::Base
     end
 
     include ActionView::Helpers::DateHelper
+    include ViewHelpers
   end
 
   not_found do
