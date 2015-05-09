@@ -6,6 +6,7 @@ end
 
 describe 'sinatra view helpers' do
   it 'should display the application git revision' do
+    expect(File).to receive(:readable?).and_return(true)
     expect(IO).to receive(:read).and_return("abcdefg\n")
     revision = app_revision
     expect(revision).to eq("abcdefg")
