@@ -18,8 +18,10 @@ class App < Sinatra::Base
   # :nocov:
   configure :development do
     require 'better_errors'
+    require 'logger'
     use BetterErrors::Middleware
     BetterErrors.application_root = __dir__
+    DB.loggers << Logger.new($stderr)
   end
   # :nocov:
 
