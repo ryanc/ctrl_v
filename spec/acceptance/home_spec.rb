@@ -20,4 +20,9 @@ describe 'The home page' do
     click_button 'Paste It'
     expect(page).to have_content('The paste cannot be blank.')
   end
+
+  it 'should display the git revision in the footer' do
+    visit '/new'
+    expect(page).to have_content("Revision:")
+  end
 end

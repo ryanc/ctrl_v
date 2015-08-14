@@ -1,40 +1,42 @@
-<%= erb :flash %>
-<form action="/new" method="post">
-  <% @paste.errors.full_messages.each do |error_message| %>
-  <div class="alert alert-danger"><%= error_message %></div>
-  <% end %>
-  <div class="form-group">
-    <textarea id="paste" class="form-control" name="paste[content]" autofocus><%= e @paste.content %></textarea>
-  </div>
-  <div class="form-group">
-    <div class="row">
-      <div class="col-lg-4">
-        <input class="form-control" type="text" name="paste[filename]" id="filename" placeholder="Optional filename ..." value="<%= e @paste.filename %>" />
-      </div>
-      <div class="col-lg-2 col-lg-offset-6">
-        <div class="form-group">
-          <div class="input-group">
-            <div class="input-group-addon"><span class="glyphicon glyphicon-trash"></span></div>
-            <select class="form-control" name="paste[expires]" id="expires">
-              <option value="-1">On next view</option>
-              <option value="3600">In one hour</option>
-              <option value="86400">In one day</option>
-              <option value="604800">In one week</option>
-              <option value="2592000">In one month</option>
-              <option value="0" selected="selected">Never</option>
-            </select>
+<div class="container-fluid">
+  <%= erb :flash %>
+  <form action="/new" method="post">
+    <% @paste.errors.full_messages.each do |error_message| %>
+    <div class="alert alert-danger"><%= error_message %></div>
+    <% end %>
+    <div class="form-group">
+      <textarea id="paste" class="form-control" name="paste[content]" autofocus><%= e @paste.content %></textarea>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-lg-4">
+          <input class="form-control" type="text" name="paste[filename]" id="filename" placeholder="Optional filename ..." value="<%= e @paste.filename %>" />
+        </div>
+        <div class="col-lg-2 col-lg-offset-6">
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-addon"><span class="glyphicon glyphicon-trash"></span></div>
+              <select class="form-control" name="paste[expires]" id="expires">
+                <option value="-1">On next view</option>
+                <option value="3600">In one hour</option>
+                <option value="86400">In one day</option>
+                <option value="604800">In one week</option>
+                <option value="2592000">In one month</option>
+                <option value="0" selected="selected">Never</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-4 col-lg-offset-8">
-        <label class="checkbox-inline pull-right" for="highlighted">
-          <input type="checkbox" name="paste[highlighted]" checked="checked" /> Syntax highlighting?
-        </label>
+      <div class="row">
+        <div class="col-lg-4 col-lg-offset-8">
+          <label class="checkbox-inline pull-right" for="highlighted">
+            <input type="checkbox" name="paste[highlighted]" checked="checked" /> Syntax highlighting?
+          </label>
+        </div>
       </div>
     </div>
-  </div>
-  <button type="submit" class="btn btn-primary btn-lg pull-right">Paste It</button>
-  <input type="text" name="_hp" id="_hp" />
-</form>
+    <button type="submit" class="btn btn-primary btn-lg pull-right">Paste It</button>
+    <input type="text" name="_hp" id="_hp" />
+  </form>
+</div>

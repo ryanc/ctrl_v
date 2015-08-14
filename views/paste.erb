@@ -1,18 +1,39 @@
-<%= erb :flash %>
-<div>
-  <div class="btn-group pull-right">
-    <a class="btn btn-default" role="button" href="/p/<%= @paste.id_b62 %>/text">Raw</a>
-    <a class="btn btn-default" role="button" href="/p/<%= @paste.id_b62 %>/download">Download</a>
-    <a class="btn btn-default" role="button" href="/p/<%= @paste.id_b62 %>/clone">Clone</a>
-    <% if @paste.owner?(current_user) %>
-    <a class="btn btn-danger" role="button" href="/p/<%= @paste.id_b62 %>/delete">Delete</a>
-    <% end %>
+<div class="paste-meta">
+  <div class="paste-created-at">
+    <span class="glyphicon glyphicon-file"></span>
+    Created
+    <time datetime="<%= @paste.created_at.utc.strftime('%FT%TZ') %>" title="<%= @paste.created_at %>">
+      <%= distance_of_time_in_words(@paste.created_at, Time.now) %> ago
+    </time>
   </div>
-</div>
-<div class="paste">
-  <% if @paste.highlighted? %>
-  <pre><code><%= e @paste.content %></code></pre>
-  <% else %>
-  <pre><%= e @paste.content %></pre>
+  <% if @paste.expires_at %>
+  <div class="paste-expires-at">
+    <span class="glyphicon glyphicon-trash"></span>
+    Expires in
+    <time datetime="<%= @paste.expires_at.utc.strftime('%FT%TZ') %>" title="<%= @paste.expires_at %>">
+      <%= distance_of_time_in_words(Time.now, @paste.expires_at) %>
+    </time>
+  </div>
   <% end %>
+</div>
+<div class="container-fluid">
+  <%= erb :flash %>
+  <div>
+    <div class="btn-group pull-right">
+      <a class="btn btn-default" role="button" href="/p/<%= @paste.id_b62 %>/text">Raw</a>
+      <a class="btn btn-default" role="button" href="/p/<%= @paste.id_b62 %>/download">Download</a>
+      <a class="btn btn-default" role="button" href="/p/<%= @paste.id_b62 %>/clone">Clone</a>
+      <% if @paste.owner?(current_user) %>
+      <a class="btn btn-danger" role="button" href="/p/<%= @paste.id_b62 %>/delete">Delete</a>
+      <% end %>
+    </div>
+  </div>
+  <div class="paste">
+    <% if @paste.highlighted? %>
+    <pre><code><%= e @paste.content %></code></pre>
+    <% else %>
+    <pre><%= e @paste.content %></pre>
+    <% end %>
+    <!-- Created at: <%= @paste.created_at %> -->
+  </div>
 </div>

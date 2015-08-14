@@ -5,6 +5,9 @@ require 'rack-flash'
 require 'sequel'
 require 'yaml'
 require 'sinatra/config_file'
+require 'active_support/all'
+require 'action_view'
+require 'helpers'
 
 env = ENV['RACK_ENV'] || 'production'
 DB = Sequel.connect(ENV['DATABASE_URL'] || YAML.load_file('config/database.yml')[env])
@@ -15,8 +18,10 @@ class App < Sinatra::Base
   # :nocov:
   configure :development do
     require 'better_errors'
+    require 'logger'
     use BetterErrors::Middleware
     BetterErrors.application_root = __dir__
+    DB.loggers << Logger.new($stderr)
   end
   # :nocov:
 
@@ -39,6 +44,9 @@ class App < Sinatra::Base
       id.gsub!(/[^a-zA-Z0-9]/, '')
       "/p/#{id}"
     end
+
+    include ActionView::Helpers::DateHelper
+    include ViewHelpers
   end
 
   not_found do

@@ -20,6 +20,8 @@ gem 'pony'
 
 gem 'rake'
 gem 'whenever'
+gem 'actionview'
+gem 'sass'
 
 group :deployment do
   gem 'unicorn'
@@ -27,7 +29,6 @@ end
 
 group :development do
   gem 'shotgun'
-  gem 'sass'
   gem 'foreman'
   gem 'pry'
   gem 'capistrano'
@@ -36,7 +37,7 @@ group :development do
   gem 'rubocop'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'guard-rspec'
+  gem 'guard-rspec', require: false
 end
 
 group :test do
