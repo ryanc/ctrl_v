@@ -21,6 +21,7 @@ gem 'pony'
 gem 'rake'
 gem 'whenever'
 gem 'actionview'
+gem 'sass'
 
 group :deployment do
   gem 'unicorn'
@@ -28,7 +29,6 @@ end
 
 group :development do
   gem 'shotgun'
-  gem 'sass'
   gem 'foreman'
   gem 'pry'
   gem 'capistrano'
